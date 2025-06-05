@@ -1,11 +1,11 @@
-import React, { useContext } from "react";
+import React from "react";
 import { Link, NavLink } from "react-router";
-import { AuthContext } from "../provider/AuthProvider.jsx";
-import nabBg from "../assets/navBG.jpg";
+// import { AuthContext } from "../provider/AuthProvider.jsx";
+// import nabBg from "../assets/navBG.jpg";
 
 const Navbar = () => {
-  const { name } = useContext(AuthContext);
-  console.log(name);
+  // const { name } = useContext(AuthContext);
+  // console.log(name);
   const link = (
     <>
       <NavLink to="/">Home</NavLink>
@@ -14,7 +14,7 @@ const Navbar = () => {
   );
   return (
     <div
-      className="navbar bg-base-300 border-b-4 border-red-600  shadow-sm sticky top-0"
+      className="navbar bg-base-300 border-b-4 border-red-600  shadow-sm sticky top-0 z-10"
     //   style={{
     //     backgroundImage: `url(${nabBg})`,
     //   }}

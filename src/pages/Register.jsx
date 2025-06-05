@@ -1,23 +1,76 @@
-import React from "react";
+import React, { useContext } from "react";
 import bgImg from "../assets/quibe.jpg";
 import GoogleLogIn from "./GoogleLogIn";
+import { AuthContext } from "../provider/AuthProvider";
+import { updateProfile } from "firebase/auth";
+import { auth } from "../firebase/firebase.init";
+import { Link } from "react-router";
+import Swal from "sweetalert2";
+import { toast, ToastContainer } from "react-toastify";
 
 const Register = () => {
+  const { registerUser } = useContext(AuthContext);
+  // console.log(registerUser);
+  const notify = (msg) => toast.error(msg);
+  const handleRegister = (e) => {
+    e.preventDefault();
+
+    const name = e.target.name.value;
+    const email = e.target.email.value;
+    const password = e.target.password.value;
+    const photoURL = e.target.photoURL.value;
+    // console.log(name,email,password,photoURL);
+    const passwordPattern =
+      /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[*/!@#$%^&()_+=-]).{6,}$/;
+    if (!passwordPattern.test(password)) {
+      const passErr ='must include uppercase, lowercase, and be at least 6 characters'
+      notify(passErr);
+
+      return;
+    }
+    registerUser(email, password)
+      .then((userCredential) => {
+        console.log(userCredential);
+        updateProfile(auth.currentUser, {
+          displayName: name,
+          photoURL: photoURL,
+        })
+          .then(() => {
+            Swal.fire({
+              position: "top-end",
+              icon: "success",
+              title: "Your Account Created Successfully",
+              showConfirmButton: false,
+              timer: 1500,
+            });
+          })
+          .catch((error) => {
+            notify(error.message);
+          });
+      })
+      .catch((error) => {
+        notify(error.message);
+      });
+    e.target.reset();
+  };
   return (
     <div
-      className="flex justify-center items-center py-10 bg-black"
+      className="flex justify-center items-center py-10 bg-black min-h-[calc(100vh-64px)] "
       style={{
         backgroundImage: `url(${bgImg})`,
+        position: "sticky",
+        top: 0,
       }}
     >
       <div className="card bg-base-100 w-full max-w-sm shrink-0 shadow-2xl">
         <div className="card-body ">
           <h1 className="text-2xl font-bold">Create an Account</h1>
-          <form className="fieldset">
+          <form onSubmit={handleRegister} className="fieldset">
             {/* name */}
             <label className="label font-bold">Your Full Name</label>
             <input
               type="text"
+              name="name"
               className="input"
               placeholder="Your Full Name"
               required
@@ -26,6 +79,7 @@ const Register = () => {
             <label className="label font-bold"> Your Email</label>
             <input
               type="email"
+              name="email"
               className="input"
               placeholder="info@gmail.com"
             />
@@ -33,22 +87,33 @@ const Register = () => {
             <label className="label font-bold">Password</label>
             <input
               type="password"
+              name="password"
               className="input"
-              placeholder="Password (Exm :a-Z*/1-9) at lase 6 digit"
+              placeholder="Password (Exmp :a-Z*/1-9) at lase 6 digit"
             />
             {/* photoUrl */}
             <label className="label font-bold">Profile Picture URL</label>
             <input
-              type="password"
+              type="url"
+              name="photoURL"
               className="input"
               placeholder="1lkgjkdhf%#l*fjgkdfhjg24HDtdbarif"
             />
             <button type="submit" className="btn btn-neutral mt-4">
-              Login
+              SignUp
             </button>
-            
+
             <GoogleLogIn></GoogleLogIn>
           </form>
+          <p>
+            Already have an Account? Please{" "}
+            <Link to="/login" className="text-blue-600 underline">
+              logIn here
+            </Link>
+          </p>
+          <div className="z-20">
+            <ToastContainer />
+          </div>
         </div>
       </div>
     </div>
