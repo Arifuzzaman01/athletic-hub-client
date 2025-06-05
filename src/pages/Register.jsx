@@ -58,8 +58,7 @@ const Register = () => {
       className="flex justify-center items-center py-10 bg-black min-h-[calc(100vh-64px)] "
       style={{
         backgroundImage: `url(${bgImg})`,
-        position: "sticky",
-        top: 0,
+       
       }}
     >
       <div className="card bg-base-100 w-full max-w-sm shrink-0 shadow-2xl">

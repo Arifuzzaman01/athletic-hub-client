@@ -8,8 +8,8 @@ const Navbar = () => {
   console.log(user);
   const link = (
     <>
-      <NavLink className='font-bold px-1' to="/">Home</NavLink>
-      <NavLink className='font-bold px-1' to="/">Event</NavLink>
+      <NavLink className='font-bold px-1 link-hover' to="/">Home</NavLink>
+      <NavLink className='font-bold px-1 link-hover' to="/">Event</NavLink>
     </>
   );
   return (
