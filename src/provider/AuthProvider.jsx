@@ -23,11 +23,12 @@ const AuthProvider = ({ children }) => {
   };
   useEffect(() => {
     const unSubscribe = onAuthStateChanged(auth, (currentUser) => {
-      setUser(currentUser)
-      setLoading(false)
+      setUser(currentUser);
+      setLoading(false);
     });
   }, []);
   const userInfo = {
+    user,
     registerUser,
     signInUser,
     socialLogIn,

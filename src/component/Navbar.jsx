@@ -1,23 +1,23 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Link, NavLink } from "react-router";
-// import { AuthContext } from "../provider/AuthProvider.jsx";
+import { AuthContext } from "../provider/AuthProvider.jsx";
 // import nabBg from "../assets/navBG.jpg";
 
 const Navbar = () => {
-  // const { name } = useContext(AuthContext);
-  // console.log(name);
+  const { user } = useContext(AuthContext);
+  console.log(user);
   const link = (
     <>
-      <NavLink to="/">Home</NavLink>
-      <NavLink to="/">Event</NavLink>
+      <NavLink className='font-bold px-1' to="/">Home</NavLink>
+      <NavLink className='font-bold px-1' to="/">Event</NavLink>
     </>
   );
   return (
     <div
       className="navbar bg-base-300 border-b-4 border-red-600  shadow-sm sticky top-0 z-10"
-    //   style={{
-    //     backgroundImage: `url(${nabBg})`,
-    //   }}
+      //   style={{
+      //     backgroundImage: `url(${nabBg})`,
+      //   }}
     >
       <div className="navbar-start">
         <div className="dropdown">
@@ -51,14 +51,16 @@ const Navbar = () => {
         <ul className="menu menu-horizontal px-1">{link}</ul>
       </div>
       <div className="navbar-end">
-        <Link to="/register">
-          {" "}
-          <button className="btn btn-outline mx-1">SignUp</button>
-        </Link>
-        <Link to="/login">
-          {" "}
-          <button className="btn btn-accent">LogIn</button>
-        </Link>
+        <div className="w-10 h-10 rounded-full border-2 border-red-400">
+          {user && <img className="rounded-full cursor-pointer" src={user.photoURL} alt="user photo url" title={user.displayName} />}
+        </div>
+        <button className="btn btn-outline mx-1">
+          <Link to="/register">SignIn</Link>
+        </button>
+
+        <button className="btn bg-black text-white border-black mx-1">
+          <Link to="/login">LogIn</Link>
+        </button>
       </div>
     </div>
   );
