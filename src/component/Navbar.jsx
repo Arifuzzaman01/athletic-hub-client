@@ -1,15 +1,37 @@
 import React, { useContext } from "react";
 import { Link, NavLink } from "react-router";
 import { AuthContext } from "../provider/AuthProvider.jsx";
+import { button, div } from "motion/react-client";
+import Swal from "sweetalert2";
+import { toast, ToastContainer } from "react-toastify";
 // import nabBg from "../assets/navBG.jpg";
 
 const Navbar = () => {
-  const { user } = useContext(AuthContext);
-  console.log(user);
+  const { user, logOut } = useContext(AuthContext);
+  // console.log(user);
+  const notify = (msg) => toast.error(msg);
+  const handleSignOut = () => {
+    logOut().then(() => {
+      Swal.fire({
+        position: "top-end",
+        icon: "success",
+        title: "SignOut Successfully",
+        showConfirmButton: false,
+        timer: 1500,
+      });
+    })
+      .catch(error => {
+        notify(error.message)
+      });
+  };
   const link = (
     <>
-      <NavLink className='font-bold px-1 link-hover' to="/">Home</NavLink>
-      <NavLink className='font-bold px-1 link-hover' to="/">Event</NavLink>
+      <NavLink className="font-bold px-1 link-hover" to="/">
+        Home
+      </NavLink>
+      <NavLink className="font-bold px-1 link-hover" to="/">
+        Event
+      </NavLink>
     </>
   );
   return (
@@ -51,17 +73,30 @@ const Navbar = () => {
         <ul className="menu menu-horizontal px-1">{link}</ul>
       </div>
       <div className="navbar-end">
-        <div className="w-10 h-10 rounded-full border-2 border-red-400">
-          {user && <img className="rounded-full cursor-pointer" src={user.photoURL} alt="user photo url" title={user.displayName} />}
+        <div >
+          {user && (
+            <img
+              className="rounded-full cursor-pointer w-10 h-10 "
+              src={user.photoURL}
+              alt="user photo url"
+              title={user.displayName}
+            />
+          )}
         </div>
-        <button className="btn btn-outline mx-1">
-          <Link to="/register">SignIn</Link>
-        </button>
-
-        <button className="btn bg-black text-white border-black mx-1">
-          <Link to="/login">LogIn</Link>
-        </button>
+        {user ? (
+          <button onClick={handleSignOut} className="btn bg-black text-white mx-1">LogOut</button>
+        ) : (
+          <div>
+            <button  className="btn btn-outline mx-1">
+              <Link to="/register">SignIn</Link>
+            </button>
+            <button className="btn bg-black text-white border-black mx-1">
+              <Link to="/login">LogIn</Link>
+            </button>
+          </div>
+        )}
       </div>
+      <ToastContainer />
     </div>
   );
 };

@@ -1,1 +1,5 @@
-
+@import "tailwindcss";
+@plugin "daisyui";
+.active {
+  border-bottom: 3px solid darkred;
+}
