@@ -32,6 +32,9 @@ const Navbar = () => {
       <NavLink className="font-bold px-1 link-hover" to="/">
         Event
       </NavLink>
+      <NavLink className="font-bold px-1 link-hover" to="/create-event">
+        Create Event 
+      </NavLink>
     </>
   );
   return (

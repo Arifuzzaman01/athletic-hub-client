@@ -4,6 +4,7 @@ import MainLayout from "./layout/MainLayout";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
 import Home from "./pages/Home";
+import CreateEvent from "./event/CreateEvent";
 
 export const router = createBrowserRouter([
   {
@@ -13,6 +14,10 @@ export const router = createBrowserRouter([
       {
         index: true,
         Component: Home,
+      },
+      {
+        path: '/create-event',
+        element: <CreateEvent></CreateEvent>
       },
       {
         path: "/login",
