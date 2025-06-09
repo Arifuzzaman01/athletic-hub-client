@@ -2,21 +2,44 @@ import React, { useContext } from "react";
 import bg from "../assets/formBg.jpg";
 import Lottie from "lottie-react";
 import lottieSport from "../assets/lottieSport.json";
+import { format } from "date-fns";
 
 import { motion } from "motion/react";
 
 import { AuthContext } from "../provider/AuthProvider";
 import { object } from "motion/react-client";
+import axios from "axios";
+import Swal from "sweetalert2";
 
 const CreateEvent = () => {
   const { user } = useContext(AuthContext);
+  const now = new Date();
+  // console.log()
+  const formattedDate = format(now, "yyyy-MM-dd HH:mm:ss");
+  // console.log(formattedDate);
   const handleCreateEvent = (e) => {
     e.preventDefault();
     console.log("clicked");
     const form = e.target;
     const formData = new FormData(form);
     const data = Object.fromEntries(formData.entries());
-    console.log(data);
+    data.postedDate = formattedDate;
+    axios
+      .post(`${import.meta.env.VITE_base_url}/athletic`, data)
+      .then((res) => {
+        console.log(res.data);
+        if (res?.data?.insertedId) {
+          Swal.fire({
+            position: "top",
+            icon: "success",
+            title: "Your event has been created",
+            showConfirmButton: false,
+            timer: 1500,
+          });
+        }
+      })
+      .catch((error) => console.log(error));
+    form.reset()
   };
   return (
     <div
@@ -25,8 +48,8 @@ const CreateEvent = () => {
         backgroundImage: `url(${bg})`,
       }}
     >
-      <div className="card bg-base-100 w-full max-w-3/4 mx-auto shrink-0 shadow-2xl flex flex-row items-center">
-        <div className="card-body w-3/4">
+      <div className="card bg-base-100 w-full max-w-3/4 mx-auto shrink-0 shadow-2xl ">
+        <div className="card-body ">
           <motion.h1
             animate={{
               color: [
@@ -48,7 +71,7 @@ const CreateEvent = () => {
           >
             Add a Event as You Need
           </motion.h1>
-          <form onSubmit={handleCreateEvent}>
+          <form onSubmit={handleCreateEvent} className="shadow-2xl p-8 ">
             <fieldset className="fieldset w-full space-y-3">
               {/* name */}
               <div className="type">
@@ -57,6 +80,7 @@ const CreateEvent = () => {
                 <input
                   type="text"
                   className="input w-full"
+                  required
                   name="eventName"
                   placeholder="Add your event name"
                 />
@@ -71,7 +95,7 @@ const CreateEvent = () => {
                   <select
                     name="eventType"
                     defaultValue="Select a Event Type"
-                    className="select  w-full "
+                    className="select  w-full  "
                   >
                     <option disabled={true}>Summing</option>
                     <option value="Summing">Summing</option>
@@ -87,17 +111,25 @@ const CreateEvent = () => {
                 <div>
                   <label className="label font-semibold my-2">Date</label>{" "}
                   <br />
-                  <input type="date" name="date" className="input" />
+                  <input
+                    type="date"
+                    name="date"
+                    className="input w-full"
+                    required
+                  />
                 </div>
                 {/* creator name */}
                 <div>
-                  <label className="label font-semibold my-2">Creator Name</label>{" "}
+                  <label className="label font-semibold my-2">
+                    Creator Name
+                  </label>{" "}
                   <br />
                   <input
                     type="text"
                     name="creatorName"
                     value={user?.displayName}
                     className="input w-full"
+                    required
                     placeholder="Email"
                   />
                 </div>
@@ -112,23 +144,40 @@ const CreateEvent = () => {
                     value={user?.email}
                     name="creatorEmail"
                     className="input w-full"
+                    required
                     placeholder="Creator Email"
                   />
                 </div>
+                {/* url */}
+                <div>
+                  <label className="label font-semibold my-2">
+                    Picture URL for the event
+                  </label>{" "}
+                  <br />
+                  <input
+                    type="url"
+                    name="eventUrl"
+                    className="input w-full"
+                    required
+                    placeholder="enter your event photo url"
+                  />
+                </div>
+                {/* location */}
+                <div>
+                  <label className="label font-semibold my-2">
+                    Event Location
+                  </label>{" "}
+                  <br />
+                  <input
+                    type="text"
+                    name="location"
+                    className="input w-full"
+                    required
+                    placeholder="enter your event location"
+                  />
+                </div>
               </div>
-              {/* url */}
-              <div>
-                <label className="label font-semibold my-2">
-                  Profile Photo URL
-                </label>{" "}
-                <br />
-                <input
-                  type="url"
-                  name="photoUrl"
-                  className="input w-full"
-                  placeholder="enter your photo url"
-                />
-              </div>
+
               {/* description */}
               <div>
                 <label className="label font-semibold my-2">
@@ -136,6 +185,7 @@ const CreateEvent = () => {
                 </label>
                 <textarea
                   className="textarea h-24 w-full"
+                  required
                   name="description"
                   placeholder="write details"
                 ></textarea>
@@ -148,9 +198,6 @@ const CreateEvent = () => {
               Submit Event
             </button>
           </form>
-        </div>
-        <div className="w-1/4">
-          <Lottie animationData={lottieSport} loop={true}></Lottie>
         </div>
       </div>
     </div>
