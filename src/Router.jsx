@@ -6,6 +6,7 @@ import Register from "./pages/Register";
 
 import CreateEvent from "./event/CreateEvent";
 import Home from "./pages/home/Home";
+import AllEvent from "./event/AllEvent";
 
 export const router = createBrowserRouter([
   {
@@ -19,6 +20,11 @@ export const router = createBrowserRouter([
       {
         path: '/create-event',
         element: <CreateEvent></CreateEvent>
+      },
+      {
+        path: '/all-events',
+        loader: ()=>fetch(`${import.meta.env.VITE_base_url}/athletic`),
+        Component: AllEvent
       },
       {
         path: "/login",

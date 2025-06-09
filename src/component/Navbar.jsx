@@ -29,7 +29,7 @@ const Navbar = () => {
       <NavLink className="font-bold px-1 link-hover" to="/">
         Home
       </NavLink>
-      <NavLink className="font-bold px-1 link-hover" to="/">
+      <NavLink className="font-bold px-1 link-hover" to="/all-events">
         Event
       </NavLink>
       <NavLink className="font-bold px-1 link-hover" to="/create-event">

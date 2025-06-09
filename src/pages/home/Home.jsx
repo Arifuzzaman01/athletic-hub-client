@@ -1,15 +1,17 @@
-import React from 'react';
-import Banner from '../../component/Banner';
-import FeaturedEvent from './FeaturedEvent';
-
+import React, { useEffect } from "react";
+import Banner from "../../component/Banner";
+import FeaturedEvent from "./FeaturedEvent";
+export const postPromise = fetch(`${import.meta.env.VITE_base_url}/athletic`).then(
+  (res) => res.json()
+);
 const Home = () => {
-    return (
-        <div>
-            <Banner></Banner>
-            <FeaturedEvent></FeaturedEvent>
-            
-        </div>
-    );
+  // console.log(allPostPromise);
+  return (
+    <div className="bg-base-200">
+      <Banner></Banner>
+      <FeaturedEvent ></FeaturedEvent>
+    </div>
+  );
 };
 
 export default Home;
