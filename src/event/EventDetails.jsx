@@ -2,6 +2,7 @@ import React, { useContext } from "react";
 import { useLoaderData } from "react-router";
 import { easeInOut, motion } from "motion/react";
 import { AuthContext } from "../provider/AuthProvider";
+import { IoBookmarkOutline } from "react-icons/io5";
 
 const EventDetails = () => {
   const event = useLoaderData();
@@ -38,11 +39,22 @@ const EventDetails = () => {
           <div>
             <h1 className="text-5xl font-bold">{event.eventName}</h1>
             <p className="py-6">{event.description}</p>
+            <p className="py-6">
+              Event Date : {event.date} <span>(year/month/day)</span>
+            </p>
             <div className="flex justify-between">
-              <h1>Participant : <span className="font-bold">{user.displayName}</span> </h1>
-              <h1>Participant Email: <span className="font-bold">{user.email}</span> </h1>
+              <h1>
+                Participant :{" "}
+                <span className="font-bold">{user?.displayName}</span>{" "}
+              </h1>
+              <h1>
+                Participant Email:{" "}
+                <span className="font-bold">{user?.email}</span>{" "}
+              </h1>
+              <button className="p-2 hover:bg-gray-300 rounded-sm hover:mt-1">
+                <IoBookmarkOutline />
+              </button>
             </div>
-            <button className="btn btn-primary">Get Started</button>
           </div>
         </div>
       </div>
