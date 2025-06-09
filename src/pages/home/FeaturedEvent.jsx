@@ -72,9 +72,9 @@ const FeaturedEvent = () => {
                   </address>
                 </div>
                 <div className="card-actions justify-end">
-                  <button className="btn btn-primary bg-red-500 hover:bg-red-700">
+                  <Link to={`/all-events/${postedDate._id}`} className="btn btn-primary bg-red-500 hover:bg-red-700">
                     View Details
-                  </button>
+                  </Link>
                 </div>
               </div>
             </div>

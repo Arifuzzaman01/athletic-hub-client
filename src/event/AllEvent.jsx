@@ -1,12 +1,14 @@
 import React from "react";
-import { useLoaderData } from "react-router";
+import { Link, useLoaderData } from "react-router";
 
 const AllEvent = () => {
   const allData = useLoaderData();
-  console.log(allData);
+//   console.log(allData);
   return (
     <div className="w-11/12 mx-auto my-10 ">
-      <h1>all Events</h1>
+          <div className="text-center flex justify-center">
+              <h1 className="text-red-500 font-bold text-3xl border-b-4 border-red-500 mb-5 w-fit">all Events</h1>
+      </div>
       <div className="grid grid-cols-3 gap-5">
         {allData.map((data) => (
           <div
@@ -38,7 +40,7 @@ const AllEvent = () => {
                   <span className="font-bold">{data.location}</span>
                 </address>
                     </div>
-                    <button className="btn btn-block text-white bg-red-500 hover:bg-red-700">View Details</button>
+                    <Link to={`/all-events/${data._id}`} className="btn btn-block text-white bg-red-500 hover:bg-red-700">View Details</Link>
             </div>
           </div>
         ))}
