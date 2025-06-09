@@ -38,7 +38,7 @@ const AllEvent = () => {
                   <span className="font-bold">{data.location}</span>
                 </address>
                     </div>
-                    
+                    <button className="btn btn-block text-white bg-red-500 hover:bg-red-700">View Details</button>
             </div>
           </div>
         ))}
