@@ -39,7 +39,7 @@ const Navbar = () => {
       {user && (
         <>
           <NavLink className="font-bold px-1 link-hover" to={`/myBooking/${user.email}`}>
-            My Event
+            My Booking
           </NavLink>
         </>
       )}

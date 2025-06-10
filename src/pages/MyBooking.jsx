@@ -1,13 +1,24 @@
 import React from "react";
 import { useLoaderData } from "react-router";
 import { MdDeleteForever } from "react-icons/md";
+import axios from "axios";
 
 const MyBooking = () => {
   const bookings = useLoaderData();
   // console.log(bookings);
-  const handleDeleteMyBooking = () => {
-    alert("delete")
-  }
+  const handleDeleteMyBooking = (id) => {
+    console.log(id);
+    // 68466e1e21e0af8a0ed878c0
+    // 68466e1e21e0af8a0ed878c0
+    axios
+      .delete(`${import.meta.env.VITE_base_url}/myBooking/${id}`)
+      .then((res) => {
+        console.log(res.data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
   return (
     <div className="w-11/12 mx-auto py-10">
       <h1 className="text-center font-bold text-3xl">My Booking</h1>
@@ -18,8 +29,7 @@ const MyBooking = () => {
           <thead className="border-gray-500 border-2">
             <tr className="">
               <th>
-                
-               <p>SLNo</p>
+                <p>SLNo</p>
               </th>
               <th>Event Name</th>
               <th>Location</th>
@@ -50,7 +60,12 @@ const MyBooking = () => {
                 </td>
                 <td>
                   <div className="flex justify-center">
-                    <button onClick={handleDeleteMyBooking} className="btn"><MdDeleteForever size={20}/></button>
+                    <button
+                      onClick={() => handleDeleteMyBooking(booking._id)}
+                      className="btn"
+                    >
+                      <MdDeleteForever size={20} />
+                    </button>
                   </div>
                 </td>
               </tr>
