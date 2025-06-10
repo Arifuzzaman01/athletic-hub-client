@@ -40,7 +40,7 @@ const AllEvent = () => {
                   <span className="font-bold">{data.location}</span>
                 </address>
                     </div>
-                    <Link to={`/all-events/${data._id}`} className="btn btn-block text-white bg-red-500 hover:bg-red-700">View Details</Link>
+                    <Link to={`/event/${data._id}`} className="btn btn-block text-white bg-red-500 hover:bg-red-700">View Details</Link>
             </div>
           </div>
         ))}

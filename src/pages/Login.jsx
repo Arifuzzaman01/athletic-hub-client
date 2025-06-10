@@ -1,13 +1,15 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import bgImg from "../assets/quibe.jpg";
 import { AuthContext } from "../provider/AuthProvider";
 import Swal from "sweetalert2";
 import { Link } from "react-router";
 import { toast, ToastContainer } from "react-toastify";
 import GoogleLogIn from "./GoogleLogIn";
+import { FaRegEye, FaRegEyeSlash } from "react-icons/fa";
 
 const Login = () => {
   const { signInUser } = useContext(AuthContext);
+  const [eyeChange, setEyeChange] = useState(false);
   const notify = () => toast.error("Invalid email/password");
   const handleSignIn = (e) => {
     e.preventDefault();
@@ -49,12 +51,24 @@ const Login = () => {
               placeholder="Email"
             />
             <label className="label">Password</label>
-            <input
-              type="password"
-              name="password"
-              className="input"
-              placeholder="Password"
-            />
+            <div className="relative">
+              <input
+                type={eyeChange ? "text" : "password"}
+                name="password"
+                className="input"
+                placeholder="Password"
+              />
+              <div
+                onClick={() => setEyeChange(!eyeChange)}
+                className="absolute top-1 right-4 p-2 z-10"
+              >
+                {eyeChange ? (
+                  <FaRegEye size={16} />
+                ) : (
+                  <FaRegEyeSlash size={16} />
+                )}
+              </div>
+            </div>
             <button type="submit" className="btn btn-neutral mt-4">
               Login
             </button>

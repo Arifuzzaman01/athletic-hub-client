@@ -50,14 +50,14 @@ const FeaturedEvent = () => {
             }}
           >
             <div className="shadow-2xs">
-              <figure>
+              <figure className="">
                 <img
                   className="w-full h-60"
                   src={postedDate?.eventUrl}
                   alt="Shoes"
                 />
               </figure>
-              <div className="card-body">
+              <div className="card-body ">
                 <h2 className="card-title">{postedDate.eventName}</h2>
                 <div className="space-y-3">
                   <h5 className="font-bold text-gray-500">
@@ -72,7 +72,7 @@ const FeaturedEvent = () => {
                   </address>
                 </div>
                 <div className="card-actions justify-end">
-                  <Link to={`/all-events/${postedDate._id}`} className="btn btn-primary bg-red-500 hover:bg-red-700">
+                  <Link to={`/event/${postedDate._id}`} className="btn btn-primary bg-red-500 hover:bg-red-700">
                     View Details
                   </Link>
                 </div>

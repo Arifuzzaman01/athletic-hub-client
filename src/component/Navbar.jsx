@@ -11,17 +11,18 @@ const Navbar = () => {
   // console.log(user);
   const notify = (msg) => toast.error(msg);
   const handleSignOut = () => {
-    logOut().then(() => {
-      Swal.fire({
-        position: "top-end",
-        icon: "success",
-        title: "SignOut Successfully",
-        showConfirmButton: false,
-        timer: 1500,
-      });
-    })
-      .catch(error => {
-        notify(error.message)
+    logOut()
+      .then(() => {
+        Swal.fire({
+          position: "top-end",
+          icon: "success",
+          title: "SignOut Successfully",
+          showConfirmButton: false,
+          timer: 1500,
+        });
+      })
+      .catch((error) => {
+        notify(error.message);
       });
   };
   const link = (
@@ -33,8 +34,15 @@ const Navbar = () => {
         Event
       </NavLink>
       <NavLink className="font-bold px-1 link-hover" to="/create-event">
-        Create Event 
+        Create Event
       </NavLink>
+      {user && (
+        <>
+          <NavLink className="font-bold px-1 link-hover" to={`/myBooking/${user.email}`}>
+            My Event
+          </NavLink>
+        </>
+      )}
     </>
   );
   return (
@@ -76,7 +84,7 @@ const Navbar = () => {
         <ul className="menu menu-horizontal px-1">{link}</ul>
       </div>
       <div className="navbar-end">
-        <div >
+        <div>
           {user && (
             <img
               className="rounded-full cursor-pointer w-10 h-10 "
@@ -87,10 +95,15 @@ const Navbar = () => {
           )}
         </div>
         {user ? (
-          <button onClick={handleSignOut} className="btn bg-black text-white mx-1">LogOut</button>
+          <button
+            onClick={handleSignOut}
+            className="btn bg-black text-white mx-1"
+          >
+            LogOut
+          </button>
         ) : (
           <div>
-            <button  className="btn btn-outline mx-1">
+            <button className="btn btn-outline mx-1">
               <Link to="/register">SignIn</Link>
             </button>
             <button className="btn bg-black text-white border-black mx-1">

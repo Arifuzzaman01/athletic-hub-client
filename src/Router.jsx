@@ -8,6 +8,7 @@ import CreateEvent from "./event/CreateEvent";
 import Home from "./pages/home/Home";
 import AllEvent from "./event/AllEvent";
 import EventDetails from "./event/EventDetails";
+import MyBooking from "./pages/MyBooking";
 
 export const router = createBrowserRouter([
   {
@@ -28,10 +29,16 @@ export const router = createBrowserRouter([
         Component: AllEvent
       },
       {
-        path: '/all-events/:id',
+        path: '/event/:id',
         loader: ({params})=>fetch(`${import.meta.env.VITE_base_url}/athletic/${params.id}`),
         Component: EventDetails
       },
+      {
+        path: '/myBooking/:email',
+        loader: ({params})=> fetch(`${import.meta.env.VITE_base_url}/myBooking?email=${params.email}`) ,
+        element: <MyBooking></MyBooking>
+      }
+      ,
       {
         path: "/login",
         Component: Login,

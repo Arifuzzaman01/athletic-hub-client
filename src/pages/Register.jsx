@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import bgImg from "../assets/quibe.jpg";
 import GoogleLogIn from "./GoogleLogIn";
 import { AuthContext } from "../provider/AuthProvider";
@@ -7,10 +7,12 @@ import { auth } from "../firebase/firebase.init";
 import { Link } from "react-router";
 import Swal from "sweetalert2";
 import { toast, ToastContainer } from "react-toastify";
+import { FaRegEye, FaRegEyeSlash } from "react-icons/fa";
 
 const Register = () => {
   const { registerUser } = useContext(AuthContext);
   // console.log(registerUser);
+  const [eyeChange, setEyeChange] = useState(false);
   const notify = (msg) => toast.error(msg);
   const handleRegister = (e) => {
     e.preventDefault();
@@ -23,7 +25,8 @@ const Register = () => {
     const passwordPattern =
       /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[*/!@#$%^&()_+=-]).{6,}$/;
     if (!passwordPattern.test(password)) {
-      const passErr ='must include uppercase, lowercase, and be at least 6 characters'
+      const passErr =
+        "must include uppercase, lowercase, and be at least 6 characters";
       notify(passErr);
 
       return;
@@ -58,7 +61,6 @@ const Register = () => {
       className="flex justify-center items-center py-10 bg-black min-h-[calc(100vh-64px)] "
       style={{
         backgroundImage: `url(${bgImg})`,
-       
       }}
     >
       <div className="card bg-base-100 w-full max-w-sm shrink-0 shadow-2xl">
@@ -84,12 +86,23 @@ const Register = () => {
             />
             {/* password */}
             <label className="label font-bold">Password</label>
-            <input
-              type="password"
-              name="password"
-              className="input"
-              placeholder="Password (Exmp :a-Z*/1-9) at lase 6 digit"
-            />
+            <div className="relative">
+              <input
+                type={eyeChange ? "text" : "password"}
+                name="password"
+                className="input"
+                placeholder="Password (Exmp :a-Z*/1-9) at lase 6 digit"
+              />
+              <div
+                onClick={() => setEyeChange(!eyeChange)}
+                className="absolute top-1 right-4 p-2 cursor-pointer z-10"
+              >
+                
+                {
+                  eyeChange? <FaRegEye size={16} />:<FaRegEyeSlash size={16} />
+                }
+              </div>
+            </div>
             {/* photoUrl */}
             <label className="label font-bold">Profile Picture URL</label>
             <input
