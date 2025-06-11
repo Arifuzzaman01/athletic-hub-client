@@ -62,7 +62,7 @@ const EventDetails = () => {
             <motion.img
               initial={{ y: 0 }}
               animate={{
-                y: [-30, 0, 15, 20, 0],
+                y: [0,-30, 0, 15, 20, 0],
               }}
               transition={{
                 duration: 4,

@@ -1,29 +1,74 @@
-import React, { useContext } from "react";
-import { useLoaderData } from "react-router";
+import React, { useContext, useEffect, useState } from "react";
+import { data, Link, useLoaderData } from "react-router";
 import { AuthContext } from "../provider/AuthProvider";
 import { compareAsc } from "date-fns";
 import { MdDeleteForever } from "react-icons/md";
 import { FaEdit } from "react-icons/fa";
+import axios from "axios";
+import Swal from "sweetalert2";
 
 const ManageEvent = () => {
   const allData = useLoaderData();
   const { user } = useContext(AuthContext);
+  const [userDate, setUserData] = useState([]);
+
   // console.log(data);
-  const userDate = allData.filter((data) => data?.creatorEmail === user?.email);
+  //   const initialData = allData.filter(
+  //     (data) => data?.creatorEmail === user?.email
+  //   );
+  useEffect(() => {
+    if (user?.email && allData.length) {
+      const filtered = allData.filter(
+        (data) => data?.creatorEmail === user.email
+      );
+      setUserData(filtered);
+    }
+  }, [user,allData]);
+
   //   console.log(userDate);
-  userDate.sort((a, b) => {
+  const sortedUserData = [...userDate].sort((a, b) => {
     const dateA = new Date(a.postedDate);
     const dateB = new Date(b.postedDate);
     return compareAsc(dateB, dateA);
   });
+  const handleDeleteEvent = (id) => {
+    // console.log('delete event',id);
+    axios
+      .delete(`${import.meta.env.VITE_base_url}/athletic/${id}`)
+      .then((res) => {
+        // console.log(res.data);
+        if (res.data.deletedCount) {
+          Swal.fire({
+            position: "top-end",
+            icon: "success",
+            title: "Your event has been deleted",
+            showConfirmButton: false,
+            timer: 1500,
+          });
+          const currentData = userDate?.filter((item) => item._id !== id);
+          setUserData(currentData);
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
   return (
     <div className="w-11/12 mx-auto py-8">
-      <h1 className="text-3xl font-bold text-red-500 text-center mt-10 ">Manage Your Event</h1>
-      <h1 className="text-xl font-bold text-red-700 text-center mb-5 mt-2">You can Update & Delete</h1>
+      <h1 className="text-3xl font-bold text-red-500 text-center mt-10 ">
+        Manage Your Event
+      </h1>
+      <h1 className="text-xl font-bold text-red-700 text-center mb-5 mt-2">
+        You can Update & Delete
+      </h1>
       {/* Table */}
-          <div className="overflow-x-auto border-8 border-gray-300 rounded-2xl p-5" style={{
-          boxShadow: ' 7px 7px  7px  #727372 inset , -7px -7px 7px #727372 inset'
-      }}>
+      <div
+        className="overflow-x-auto border-8 border-gray-300 rounded-2xl p-5"
+        style={{
+          boxShadow:
+            " 7px 7px  7px  #727372 inset , -7px -7px 7px #727372 inset",
+        }}
+      >
         <table className="table table-pin-cols  ">
           {/* head */}
           <thead>
@@ -38,18 +83,21 @@ const ManageEvent = () => {
           </thead>
           <tbody>
             {/* row  */}
-            {userDate.map((data, index) => (
-              <tr className="border-gray-500">
+            {sortedUserData?.map((data, index) => (
+              <tr key={data._id} className="border-gray-500">
                 <th>{index + 1}</th>
                 <td className="font-bold">{data.eventName}</td>
-                <td >{data.location}</td>
+                <td>{data.location}</td>
                 <td>{data?.postedDate?.split(" ")[0]}</td>
                 <td>{data?.date}</td>
                 <td className="text-center">
-                  <button className="my-2 btn">
+                  <Link to={`/updateEvents/${data._id}`} className="my-2 btn">
                     <FaEdit size={18} />
-                  </button>
-                  <button className="my-2 btn bg-red-500 text-white hover:bg-red-700">
+                  </Link>
+                  <button
+                    onClick={() => handleDeleteEvent(data._id)}
+                    className="my-2 btn bg-red-500 text-white hover:bg-red-700"
+                  >
                     <MdDeleteForever size={18} />
                   </button>
                 </td>
