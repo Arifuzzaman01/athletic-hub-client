@@ -1,9 +1,15 @@
+import { compareAsc } from "date-fns";
 import React from "react";
 import { Link, useLoaderData } from "react-router";
 
 const AllEvent = () => {
   const allData = useLoaderData();
-//   console.log(allData);
+  //   console.log(allData);
+  allData.sort((a, b) => {
+    const dateA = new Date(a.postedDate)
+    const dateB = new Date(b.postedDate)
+    return compareAsc(dateB,dateA)
+  })
   return (
     <div className="w-11/12 mx-auto my-10 ">
           <div className="text-center flex justify-center">

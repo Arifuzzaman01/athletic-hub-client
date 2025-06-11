@@ -9,6 +9,7 @@ import Home from "./pages/home/Home";
 import AllEvent from "./event/AllEvent";
 import EventDetails from "./event/EventDetails";
 import MyBooking from "./pages/MyBooking";
+import ManageEvent from "./event/ManageEvent";
 
 export const router = createBrowserRouter([
   {
@@ -37,7 +38,12 @@ export const router = createBrowserRouter([
         path: '/myBooking/:email',
         loader: ({params})=> fetch(`${import.meta.env.VITE_base_url}/myBooking?email=${params.email}`) ,
         element: <MyBooking></MyBooking>
-      }
+      },
+      {
+        path: "/manageEvents",
+        loader: ()=> fetch(`${import.meta.env.VITE_base_url}/athletic`) ,
+        element: <ManageEvent></ManageEvent>
+      },
       ,
       {
         path: "/login",

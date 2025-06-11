@@ -33,14 +33,21 @@ const Navbar = () => {
       <NavLink className="font-bold px-1 link-hover" to="/all-events">
         Event
       </NavLink>
-      <NavLink className="font-bold px-1 link-hover" to="/create-event">
-        Create Event
-      </NavLink>
+
       {user && (
         <>
-          <NavLink className="font-bold px-1 link-hover" to={`/myBooking/${user.email}`}>
+          <NavLink className="font-bold px-1 link-hover" to="/create-event">
+            Create Event
+          </NavLink>
+          <NavLink
+            className="font-bold px-1 link-hover"
+            to={`/myBooking/${user.email}`}
+          >
             My Booking
           </NavLink>
+          <NavLink className="font-bold px-1 link-hover" to="/manageEvents">
+        Manage Events
+      </NavLink>
         </>
       )}
     </>
