@@ -72,7 +72,10 @@ const FeaturedEvent = () => {
                   </address>
                 </div>
                 <div className="card-actions justify-end">
-                  <Link to={`/event/${postedDate._id}`} className="btn btn-primary bg-red-500 hover:bg-red-700">
+                  <Link
+                    to={`/event/${postedDate._id}`}
+                    className="btn btn-primary bg-red-500 hover:bg-red-700"
+                  >
                     View Details
                   </Link>
                 </div>
@@ -82,12 +85,14 @@ const FeaturedEvent = () => {
         ))}
       </div>
       <div className="my-5 flex justify-center">
-        <Link
-          to="/all-events"
-          className="btn btn-primary bg-red-500 hover:bg-red-700 w-full"
-        >
-          View More
-        </Link>
+        {allPostedData.length == 6 && (
+          <Link
+            to="/all-events"
+            className="btn btn-primary bg-red-500 hover:bg-red-700 w-full"
+          >
+            View More
+          </Link>
+        )}
       </div>
     </div>
   );

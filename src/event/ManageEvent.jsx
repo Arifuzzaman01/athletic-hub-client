@@ -32,7 +32,7 @@ const ManageEvent = () => {
     return compareAsc(dateB, dateA);
   });
   const handleDeleteEvent = (id) => {
-    // console.log('delete event',id);
+    console.log('delete event',id);
     axios
       .delete(`${import.meta.env.VITE_base_url}/athletic/${id}`)
       .then((res) => {

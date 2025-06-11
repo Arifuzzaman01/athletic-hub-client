@@ -1,22 +1,44 @@
 import React, { useContext } from "react";
 import { motion } from "motion/react";
 import { AuthContext } from "../provider/AuthProvider";
-import { useLoaderData } from "react-router";
+import { useLoaderData, useParams } from "react-router";
 import { format } from "date-fns";
+import axios from "axios";
+import Swal from "sweetalert2";
 
 const Update = () => {
   const { user } = useContext(AuthContext);
-  const { eventName, eventType, date, eventUrl, location, description } =
-    useLoaderData();
+    const oldData = useLoaderData();
+    const { eventName, eventType, date, eventUrl, location, description }=oldData
+    const { id } = useParams();
+    console.log(id);
   const now = new Date();
   const formattedDate = format(now, "yyyy-MM-dd HH:mm:ss");
   const handleUpdateEvent = (e) => {
     e.preventDefault();
-    console.log("clicked");
+    // console.log("clicked");
     const form = e.target;
     const formData = new FormData(form);
-    const data = Object.fromEntries(formData.entries());
-    data.updatedDate = formattedDate;
+    const currentData = Object.fromEntries(formData.entries());
+    currentData.updatedDate = formattedDate;
+    //   console.log(data);
+    axios
+      .patch(`${import.meta.env.VITE_base_url}/athletic/${id}`, currentData)
+      .then((res) => {
+        // console.log(res.data);
+          if (res.data.modifiedCount) {
+            Swal.fire({
+  position: "top-end",
+  icon: "success",
+  title: "Update Successfully",
+  showConfirmButton: false,
+  timer: 1500
+});
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   };
   return (
     <div
