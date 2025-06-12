@@ -144,7 +144,7 @@ const MyBooking = () => {
           </div>
         </TabPanel>
         <TabPanel>
-          <div className="md:grid grid-cols-3 gap-5">
+          <div className="md:grid grid-cols-3 gap-5 space-y-5">
             {bookings.map((booking) => (
               <div className="card bg-base-100  shadow-sm">
                 <figure>
@@ -155,9 +155,9 @@ const MyBooking = () => {
                   />
                 </figure>
                 <div className="card-body">
-                  <h2 className="card-title">
+                  <h2 className="card-title flex flex-col md:flex-row">
                     {booking.eventName}
-                    <div className="badge badge-secondary">
+                    <div className="badge md:badge-secondary">
                       Event Date : {booking.date}
                     </div>
                   </h2>

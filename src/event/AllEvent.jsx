@@ -42,7 +42,7 @@ const AllEvent = () => {
           all Events
         </h1>
       </div>
-      <div className="grid grid-cols-3 gap-5">
+      <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-5">
         {filterData.map((data) => (
           <div key={data._id}
             className=" border-2 border-gray-300  rounded-md bg-white"

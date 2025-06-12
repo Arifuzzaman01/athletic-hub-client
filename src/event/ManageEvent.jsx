@@ -66,7 +66,7 @@ const ManageEvent = () => {
 });
   };
   return (
-    <div className="w-11/12 mx-auto py-8">
+    <div className="md:w-11/12 mx-auto py-8">
       <h1 className="text-3xl font-bold text-red-500 text-center mt-10 ">
         Manage Your Event
       </h1>
@@ -75,7 +75,7 @@ const ManageEvent = () => {
       </h1>
       {/* Table */}
       <div
-        className="overflow-x-auto border-8 border-gray-300 rounded-2xl p-5"
+        className="overflow-x-auto md:border-8 border-gray-300 rounded-2xl p-5"
         style={{
           boxShadow:
             " 7px 7px  7px  #727372 inset , -7px -7px 7px #727372 inset",

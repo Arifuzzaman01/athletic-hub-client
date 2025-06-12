@@ -11,6 +11,7 @@ import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
 import { motion } from "motion/react";
+import { Link } from "react-router";
 
 const Banner = () => {
   return (
@@ -25,7 +26,8 @@ const Banner = () => {
           disableOnInteraction: false,
           pauseOnMouseEnter: true,
         }}
-        loop= {true}
+        navigation
+        loop={true}
       >
         <SwiperSlide className="text-center">
           <div
@@ -44,12 +46,16 @@ const Banner = () => {
                     opacity: 1,
                   }}
                   transition={{ duration: 1 }}
-                  className="mb-5 text-6xl font-bold"
+                  className="mb-5 text-3xl md:text-6xl font-bold"
                 >
                   Reaching Competitions
                 </motion.h1>
                 <motion.p
-                initial={{opacity:0.1}} animate={{opacity:1}} transition={{duration:2}}  className="mb-5 max-w-2/3 mx-auto text-gray-300 font-semibold">
+                  initial={{ opacity: 0.1 }}
+                  animate={{ opacity: 1 }}
+                  transition={{ duration: 2 }}
+                  className="mb-5 md:max-w-2/3 mx-auto text-justify text-gray-300 font-semibold"
+                >
                   The Reaching Competition challenges athletes to test and
                   showcase their reach, flexibility, and control. Whether it's a
                   standing reach, vertical extension, or dynamic leap, this
@@ -57,13 +63,19 @@ const Banner = () => {
                   participant. It's not just about how far you can go — it’s
                   about how accurately and consistently you can get there..
                 </motion.p>
-                <button className="btn btn-primary bg-red-500 hover:bg-red-700">Get Started</button>
+                <Link
+                  to="/all-events"
+                  className="btn btn-primary bg-red-500 hover:bg-red-700"
+                >
+                  Get Started
+                </Link>
               </div>
             </div>
           </div>
         </SwiperSlide>
         {/* slider 2 */}
-        <SwiperSlide><div
+        <SwiperSlide>
+          <div
             className="hero min-h-[85vh] bg-fixed bg-center bg-cover sticky top-0 overflow-hidden opacity-[1]"
             style={{
               backgroundImage: `url(${swimmingBg})`,
@@ -79,12 +91,16 @@ const Banner = () => {
                     opacity: 1,
                   }}
                   transition={{ duration: 1 }}
-                  className="mb-5 text-6xl font-bold"
+                  className="mb-5 text-3xl md:text-6xl font-bold"
                 >
-                  Reaching Competitions
+                  Swimming Competitions
                 </motion.h1>
                 <motion.p
-                initial={{opacity:0.1}} animate={{opacity:1}} transition={{duration:2}}  className="mb-5 max-w-2/3 mx-auto text-gray-300 font-semibold">
+                  initial={{ opacity: 0.1 }}
+                  animate={{ opacity: 1 }}
+                  transition={{ duration: 2 }}
+                  className="mb-5 text-justify md:max-w-2/3 mx-auto text-gray-300 font-semibold"
+                >
                   The Reaching Competition challenges athletes to test and
                   showcase their reach, flexibility, and control. Whether it's a
                   standing reach, vertical extension, or dynamic leap, this
@@ -92,12 +108,19 @@ const Banner = () => {
                   participant. It's not just about how far you can go — it’s
                   about how accurately and consistently you can get there..
                 </motion.p>
-                <button className="btn btn-primary bg-red-500 hover:bg-red-700">Get Started</button>
+                <Link
+                  to="/all-events"
+                  className="btn btn-primary bg-red-500 hover:bg-red-700"
+                >
+                  Get Started
+                </Link>
               </div>
             </div>
-        </div></SwiperSlide>
+          </div>
+        </SwiperSlide>
         {/* slider 3 */}
-        <SwiperSlide><div
+        <SwiperSlide>
+          <div
             className="hero min-h-[85vh] bg-fixed bg-center bg-cover sticky top-0 overflow-hidden opacity-[1]"
             style={{
               backgroundImage: `url(${HighJumpBg})`,
@@ -113,12 +136,16 @@ const Banner = () => {
                     opacity: 1,
                   }}
                   transition={{ duration: 1 }}
-                  className="mb-5 text-6xl font-bold"
+                  className="mb-5 text-3xl md:text-6xl font-bold"
                 >
-                  Reaching Competitions
+                  High Jump Competitions
                 </motion.h1>
                 <motion.p
-                initial={{opacity:0.1}} animate={{opacity:1}} transition={{duration:2}}  className="mb-5 max-w-2/3 mx-auto text-gray-300 font-semibold">
+                  initial={{ opacity: 0.1 }}
+                  animate={{ opacity: 1 }}
+                  transition={{ duration: 2 }}
+                  className="mb-5 text-justify md:max-w-2/3 mx-auto text-gray-300 font-semibold"
+                >
                   The Reaching Competition challenges athletes to test and
                   showcase their reach, flexibility, and control. Whether it's a
                   standing reach, vertical extension, or dynamic leap, this
@@ -126,11 +153,18 @@ const Banner = () => {
                   participant. It's not just about how far you can go — it’s
                   about how accurately and consistently you can get there..
                 </motion.p>
-                <button className="btn btn-primary bg-red-500 hover:bg-red-700">Get Started</button>
+                <Link
+                  to="/all-events"
+                  className="btn btn-primary bg-red-500 hover:bg-red-700"
+                >
+                  Get Started
+                </Link>
               </div>
             </div>
-          </div></SwiperSlide>
-        <SwiperSlide><div
+          </div>
+        </SwiperSlide>
+        <SwiperSlide>
+          <div
             className="hero min-h-[85vh] bg-fixed bg-center bg-cover sticky top-0 overflow-hidden opacity-[1]"
             style={{
               backgroundImage: `url(${footballBg})`,
@@ -146,12 +180,16 @@ const Banner = () => {
                     opacity: 1,
                   }}
                   transition={{ duration: 1 }}
-                  className="mb-5 text-6xl font-bold"
+                  className="mb-5 text-3xl md:text-6xl font-bold"
                 >
-                  Reaching Competitions
+                  Football Competitions
                 </motion.h1>
                 <motion.p
-                initial={{opacity:0.1}} animate={{opacity:1}} transition={{duration:2}}  className="mb-5 max-w-2/3 mx-auto text-gray-300 font-semibold">
+                  initial={{ opacity: 0.1 }}
+                  animate={{ opacity: 1 }}
+                  transition={{ duration: 2 }}
+                  className="mb-5 text-justify md:max-w-2/3 mx-auto text-gray-300 font-semibold"
+                >
                   The Reaching Competition challenges athletes to test and
                   showcase their reach, flexibility, and control. Whether it's a
                   standing reach, vertical extension, or dynamic leap, this
@@ -159,11 +197,16 @@ const Banner = () => {
                   participant. It's not just about how far you can go — it’s
                   about how accurately and consistently you can get there..
                 </motion.p>
-                <button className="btn btn-primary bg-red-500 hover:bg-red-700">Get Started</button>
+                <Link
+                  to="/all-events"
+                  className="btn btn-primary bg-red-500 hover:bg-red-700"
+                >
+                  Get Started
+                </Link>
               </div>
             </div>
-          </div></SwiperSlide>
-        
+          </div>
+        </SwiperSlide>
       </Swiper>
     </div>
   );

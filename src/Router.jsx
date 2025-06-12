@@ -15,6 +15,7 @@ import Loader from "./component/Loader";
 import Update from "./event/Update";
 import PrivateRouter from "./provider/PrivateRouter";
 import PageTitle from "./component/PageTitle";
+import Error from "./pages/Error";
 
 export const router = createBrowserRouter([
   {
@@ -89,5 +90,9 @@ export const router = createBrowserRouter([
         Component: Register,
       },
     ],
+  },
+  {
+    path: "*",
+    Component: Error,
   },
 ]);

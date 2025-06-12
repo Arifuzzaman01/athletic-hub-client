@@ -1,6 +1,6 @@
 import React from "react";
 import Lottie from "lottie-react";
-import lottieSport from "../assets/lottieSport.json";
+import lottieSport from "../assets/lotties/lottieSport.json";
 
 const Loader = () => {
   return (

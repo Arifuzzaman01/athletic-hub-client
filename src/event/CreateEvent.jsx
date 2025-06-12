@@ -47,8 +47,8 @@ const CreateEvent = () => {
         backgroundImage: `url(${bg})`,
       }}
     >
-      <div className="card bg-base-100 w-full max-w-3/4 mx-auto shrink-0 shadow-2xl ">
-        <div className="card-body ">
+      <div className="card bg-base-100 w-full max-w-11/12 md:max-w-3/4 mx-auto shrink-0 shadow-2xl ">
+        <div className="md:card-body ">
           <motion.h1
             animate={{
               color: [
@@ -66,7 +66,7 @@ const CreateEvent = () => {
               ],
             }}
             transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
-            className="text-4xl font-bold text-center text-red-500"
+            className="text-2xl mt-5 md:text-4xl font-bold text-center text-red-500"
           >
             Add a Event as You Need
           </motion.h1>

@@ -4,6 +4,8 @@ import { AuthContext } from "../provider/AuthProvider.jsx";
 import { button, div } from "motion/react-client";
 import Swal from "sweetalert2";
 import { toast, ToastContainer } from "react-toastify";
+import logoA from "../assets/a-logo.png"
+import logoHub from "../assets/hub-logo.png"
 // import nabBg from "../assets/navBG.jpg";
 
 const Navbar = () => {
@@ -88,7 +90,8 @@ const Navbar = () => {
               {link}
             </ul>
           </div>
-          <a className="btn btn-ghost text-xl">daisyUI</a>
+          {/* logo */}
+          <a className="btn btn-ghost text-xl "> <img className="w-6" src={logoA} alt="" /> <span className="font-bold -ml-2 mt-1 text-red-500">thletic</span> <img className="w-12 pt-1 hidden md:block" src={logoHub} alt="" /></a>
         </div>
         <div className="navbar-center hidden lg:flex">
           <ul className="menu menu-horizontal px-1">{link}</ul>
