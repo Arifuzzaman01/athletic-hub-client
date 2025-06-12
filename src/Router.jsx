@@ -14,6 +14,7 @@ import { Suspense } from "react";
 import Loader from "./component/Loader";
 import Update from "./event/Update";
 import PrivateRouter from "./provider/PrivateRouter";
+import PageTitle from "./component/PageTitle";
 
 export const router = createBrowserRouter([
   {
@@ -27,11 +28,9 @@ export const router = createBrowserRouter([
       {
         path: "/create-event",
         element: (
-          
-            <PrivateRouter>
-              <CreateEvent></CreateEvent>
-            </PrivateRouter>
-          
+          <PrivateRouter>
+            <CreateEvent></CreateEvent>
+          </PrivateRouter>
         ),
       },
       {
@@ -44,11 +43,9 @@ export const router = createBrowserRouter([
         loader: ({ params }) =>
           fetch(`${import.meta.env.VITE_base_url}/athletic/${params.id}`),
         element: (
-         
-            <PrivateRouter>
-              <EventDetails></EventDetails>
-            </PrivateRouter>
-          
+          <PrivateRouter>
+            <EventDetails></EventDetails>
+          </PrivateRouter>
         ),
       },
       {
@@ -58,22 +55,18 @@ export const router = createBrowserRouter([
             `${import.meta.env.VITE_base_url}/myBooking?email=${params.email}`
           ),
         element: (
-          
-            <PrivateRouter>
-              <MyBooking></MyBooking>
-            </PrivateRouter>
-          
+          <PrivateRouter>
+            <MyBooking></MyBooking>
+          </PrivateRouter>
         ),
       },
       {
         path: "/manageEvents",
         loader: () => fetch(`${import.meta.env.VITE_base_url}/athletic`),
         element: (
-          
-            <PrivateRouter>
-              <ManageEvent></ManageEvent>
-            </PrivateRouter>
-          
+          <PrivateRouter>
+            <ManageEvent></ManageEvent>
+          </PrivateRouter>
         ),
       },
       {
@@ -81,11 +74,9 @@ export const router = createBrowserRouter([
         loader: ({ params }) =>
           fetch(`${import.meta.env.VITE_base_url}/athletic/${params.id}`),
         element: (
-          
-            <PrivateRouter>
-              <Update></Update>
-            </PrivateRouter>
-          
+          <PrivateRouter>
+            <Update></Update>
+          </PrivateRouter>
         ),
       },
       ,

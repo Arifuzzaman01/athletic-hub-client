@@ -5,7 +5,7 @@ import { useLocation } from "react-router";
 const PageTitle = () => {
   const location = useLocation();
   // const path = location.pathname.split('/')[1]
-  // console.log(path);
+  console.log(location);
   const path =
     location.pathname
       .split("/")
