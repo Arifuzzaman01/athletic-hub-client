@@ -55,9 +55,9 @@ const Navbar = () => {
     </>
   );
   return (
-    <div className="relative">
+    <div className="sticky top-0 z-10">
       <div
-        className="navbar bg-base-300 border-b-4 border-red-600  shadow-sm sticky top-0 z-10 "
+        className="navbar bg-base-300 border-b-4 border-red-600  shadow-sm relative  "
         //   style={{
         //     backgroundImage: `url(${nabBg})`,
         //   }}

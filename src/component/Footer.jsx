@@ -33,7 +33,7 @@ const Footer = () => {
             ],
             transition: { duration: 4, repeat: Infinity },
           }}
-          color=" "
+          
           className="font-bold text-3xl text-center mb-5"
         >
           AthleticHub

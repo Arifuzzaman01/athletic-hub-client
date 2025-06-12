@@ -33,6 +33,16 @@ const ManageEvent = () => {
   });
   const handleDeleteEvent = (id) => {
     console.log('delete event',id);
+   Swal.fire({
+  title: "Are you sure?",
+  text: "You won't be able to revert this!",
+  icon: "warning",
+  showCancelButton: true,
+  confirmButtonColor: "#3085d6",
+  cancelButtonColor: "#d33",
+  confirmButtonText: "Yes, delete it!"
+}).then((result) => {
+  if (result.isConfirmed) {
     axios
       .delete(`${import.meta.env.VITE_base_url}/athletic/${id}`)
       .then((res) => {
@@ -52,6 +62,8 @@ const ManageEvent = () => {
       .catch((error) => {
         console.log(error);
       });
+  }
+});
   };
   return (
     <div className="w-11/12 mx-auto py-8">
