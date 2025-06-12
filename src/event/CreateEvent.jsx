@@ -1,7 +1,6 @@
 import React, { useContext } from "react";
 import bg from "../assets/formBg.jpg";
-import Lottie from "lottie-react";
-import lottieSport from "../assets/lottieSport.json";
+
 import { format } from "date-fns";
 
 import { motion } from "motion/react";

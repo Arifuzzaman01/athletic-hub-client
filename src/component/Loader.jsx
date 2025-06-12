@@ -1,11 +1,13 @@
 import React from "react";
+import Lottie from "lottie-react";
+import lottieSport from "../assets/lottieSport.json";
 
 const Loader = () => {
   return (
     <div className="flex justify-center items-center min-h-screen">
-      <span className="loading loading-bars loading-xs"></span>
-      <span className="loading loading-bars loading-xl"></span>
-      <span className="loading loading-bars loading-xs"></span>
+      <Lottie animationData={lottieSport} loop={true}>
+
+      </Lottie>
     </div>
   );
 };

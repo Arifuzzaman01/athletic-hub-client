@@ -2,7 +2,7 @@ import React, { useContext, useState } from "react";
 import bgImg from "../assets/quibe.jpg";
 import { AuthContext } from "../provider/AuthProvider";
 import Swal from "sweetalert2";
-import { Link } from "react-router";
+import { Link, useLocation, useNavigate } from "react-router";
 import { toast, ToastContainer } from "react-toastify";
 import GoogleLogIn from "./GoogleLogIn";
 import { FaRegEye, FaRegEyeSlash } from "react-icons/fa";
@@ -11,6 +11,8 @@ const Login = () => {
   const { signInUser } = useContext(AuthContext);
   const [eyeChange, setEyeChange] = useState(false);
   const notify = () => toast.error("Invalid email/password");
+  const location = useLocation()
+  const navigate = useNavigate()
   const handleSignIn = (e) => {
     e.preventDefault();
     const email = e.target.email.value;
@@ -26,6 +28,7 @@ const Login = () => {
           showConfirmButton: false,
           timer: 1500,
         });
+        navigate(`${location.state ? location.state: "/"}`)
       })
       .catch((error) => {
         notify();

@@ -23,8 +23,8 @@ const AuthProvider = ({ children }) => {
     return signInWithPopup(auth, provider);
   };
   const logOut = () => {
-    return signOut(auth)
-  }
+    return signOut(auth);
+  };
   useEffect(() => {
     const unSubscribe = onAuthStateChanged(auth, (currentUser) => {
       setUser(currentUser);
@@ -36,7 +36,9 @@ const AuthProvider = ({ children }) => {
     registerUser,
     signInUser,
     socialLogIn,
-    logOut
+    logOut,
+    loading,
+    setLoading
   };
 
   return <AuthContext value={userInfo}>{children}</AuthContext>;

@@ -57,7 +57,7 @@ const MyBooking = () => {
             <tbody>
               {/* row  */}
               {bookings.map((booking, index) => (
-                <tr className="border-gray-500 border-2 ">
+                <tr key={index} className="border-gray-500 border-2 ">
                   <td>{index + 1}</td>
                   <td>
                     <h3 className="font-bold">{booking.eventName}</h3>

@@ -13,6 +13,7 @@ import ManageEvent from "./event/ManageEvent";
 import { Suspense } from "react";
 import Loader from "./component/Loader";
 import Update from "./event/Update";
+import PrivateRouter from "./provider/PrivateRouter";
 
 export const router = createBrowserRouter([
   {
@@ -25,7 +26,13 @@ export const router = createBrowserRouter([
       },
       {
         path: "/create-event",
-        element: <CreateEvent></CreateEvent>,
+        element: (
+          
+            <PrivateRouter>
+              <CreateEvent></CreateEvent>
+            </PrivateRouter>
+          
+        ),
       },
       {
         path: "/all-events",
@@ -36,7 +43,13 @@ export const router = createBrowserRouter([
         path: "/event/:id",
         loader: ({ params }) =>
           fetch(`${import.meta.env.VITE_base_url}/athletic/${params.id}`),
-        Component: EventDetails,
+        element: (
+         
+            <PrivateRouter>
+              <EventDetails></EventDetails>
+            </PrivateRouter>
+          
+        ),
       },
       {
         path: "/myBooking/:email",
@@ -44,15 +57,23 @@ export const router = createBrowserRouter([
           fetch(
             `${import.meta.env.VITE_base_url}/myBooking?email=${params.email}`
           ),
-        element: <MyBooking></MyBooking>,
+        element: (
+          
+            <PrivateRouter>
+              <MyBooking></MyBooking>
+            </PrivateRouter>
+          
+        ),
       },
       {
         path: "/manageEvents",
         loader: () => fetch(`${import.meta.env.VITE_base_url}/athletic`),
         element: (
-          <Suspense fallback={<Loader></Loader>}>
-            <ManageEvent></ManageEvent>
-          </Suspense>
+          
+            <PrivateRouter>
+              <ManageEvent></ManageEvent>
+            </PrivateRouter>
+          
         ),
       },
       {
@@ -60,9 +81,11 @@ export const router = createBrowserRouter([
         loader: ({ params }) =>
           fetch(`${import.meta.env.VITE_base_url}/athletic/${params.id}`),
         element: (
-          <Suspense fallback={<Loader></Loader>}>
-            <Update></Update>
-          </Suspense>
+          
+            <PrivateRouter>
+              <Update></Update>
+            </PrivateRouter>
+          
         ),
       },
       ,
