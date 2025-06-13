@@ -9,7 +9,7 @@ const Popular = () => {
     <div className="w-11/12 mx-auto my-14">
       <h1 className="text-red-500 text-2xl mb-3 md:text-3xl text-center font-bold">Most Popular Athletic</h1>
       {/* cards */}
-      <div className="md:grid grid-cols-3 gap-5">
+      <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-5">
         {/* card 1 */}
         <div className="card bg-base-100  shadow-sm">
           <figure>

@@ -8,6 +8,7 @@ import {
   signInWithPopup,
   signOut,
 } from "firebase/auth";
+import axios from "axios";
 export const AuthContext = createContext();
 const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
@@ -29,8 +30,25 @@ const AuthProvider = ({ children }) => {
     const unSubscribe = onAuthStateChanged(auth, (currentUser) => {
       setUser(currentUser);
       setLoading(false);
+      // jwt
+      if (currentUser?.email) {
+        axios
+          .post(
+            `${import.meta.env.VITE_base_url}/jwt`,
+            {
+              email: currentUser.email,
+            },
+            {
+              withCredentials: true,
+            }
+          )
+          .then((res) => {
+            console.log(res.data);
+          });
+      }
     });
-  }, []);
+  }, [setUser,setLoading]);
+  console.log(user);
   const userInfo = {
     user,
     registerUser,
@@ -38,7 +56,7 @@ const AuthProvider = ({ children }) => {
     socialLogIn,
     logOut,
     loading,
-    setLoading
+    setLoading,
   };
 
   return <AuthContext value={userInfo}>{children}</AuthContext>;

@@ -41,7 +41,7 @@ const FeaturedEvent = () => {
       >
         Featured Event
       </motion.h1>
-      <div className="md:grid space-y-5 md:space-y-0 grid-cols-3 gap-8  ">
+      <div className="grid sm:grid-cols-2 space-y-5 md:space-y-0 md:grid-cols-3 gap-8  ">
         {slicePostedData.map((postedDate) => (
           <div
             className="card bg-base-100 "

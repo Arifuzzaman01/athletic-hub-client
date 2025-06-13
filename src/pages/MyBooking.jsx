@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { useLoaderData } from "react-router";
 import { MdDeleteForever } from "react-icons/md";
 import axios from "axios";
@@ -7,12 +7,34 @@ import { Tab, TabList, TabPanel, Tabs } from "react-tabs";
 import "react-tabs/style/react-tabs.css";
 import { IoBookmarks } from "react-icons/io5";
 import { motion } from "motion/react";
+import useAxiosInstance from "../hook/useAxiosInstance";
+import { AuthContext } from "../provider/AuthProvider";
 
 const MyBooking = () => {
   const initialData = useLoaderData();
   const [bookings, setBooking] = useState(initialData);
   const [tabIndex, setTabIndex] = useState(0);
+  const { user ,loading,setLoading} = useContext(AuthContext)
+  const [bookLoader,setBookLoader]=useState(true)
+  const axiosSecure = useAxiosInstance()
   // console.log(bookings);
+  useEffect(() => {
+    if (user.email) {
+      axiosSecure(`/myBooking?email=${user.email}`)
+        .then(res => {
+        setBookLoader(false)
+        console.log(res.data);
+        setBooking(res.data)
+      })
+        .catch(err => {
+        setBookLoader(false)
+      console.log(err);
+    })
+    }
+  }, [user, axiosSecure])
+  if (bookLoader) {
+    return <p>Loading</p>
+  }
   const handleDeleteMyBooking = (id) => {
     console.log(id);
     // 68466e1e21e0af8a0ed878c0
@@ -49,6 +71,7 @@ const MyBooking = () => {
       }
     });
   };
+  console.log(bookings );
   return (
     <div className="w-11/12 mx-auto py-10">
       <div className="flex justify-center items-center">
@@ -108,7 +131,7 @@ const MyBooking = () => {
                 </thead>
                 <tbody>
                   {/* row  */}
-                  {bookings.map((booking, index) => (
+                  {bookings?.map((booking, index) => (
                     <tr key={index} className="border-gray-500 border-2 ">
                       <td>{index + 1}</td>
                       <td>
@@ -145,7 +168,7 @@ const MyBooking = () => {
         </TabPanel>
         <TabPanel>
           <div className="md:grid grid-cols-3 gap-5 space-y-5">
-            {bookings.map((booking) => (
+            {bookings?.map((booking) => (
               <div className="card bg-base-100  shadow-sm">
                 <figure>
                   <img

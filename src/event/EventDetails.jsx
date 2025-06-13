@@ -14,7 +14,7 @@ const EventDetails = () => {
   // console.log(event);
   const currentEvent = {
     ...event,
-    event_id: id,
+    
     user_email: user?.email,
   };
   console.log(currentEvent);
