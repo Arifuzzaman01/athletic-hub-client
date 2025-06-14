@@ -35,7 +35,7 @@ const Navbar = () => {
         Home
       </NavLink>
       <NavLink className="font-bold px-2 link-hover" to="/all-events">
-        Event
+        Events
       </NavLink>
 
       {user && (

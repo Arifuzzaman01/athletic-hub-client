@@ -17,7 +17,7 @@ const EventDetails = () => {
     
     user_email: user?.email,
   };
-  console.log(currentEvent);
+  console.log(event);
   const addBookMark = () => {
     axios
       .post(`${import.meta.env.VITE_base_url}/bookmark`, currentEvent)

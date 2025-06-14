@@ -104,11 +104,12 @@ const CreateEvent = () => {
                     <option value="Football">Football </option>
                     <option value="Hurdle Race">Hurdle Race </option>
                     <option value="Boxing">Boxing </option>
+                    <option value="Basket">Basket Ball </option>
                   </select>
                 </div>
                 {/* date */}
                 <div>
-                  <label className="label font-semibold my-2">Date</label>{" "}
+                  <label className="label font-semibold my-2">Event Date</label>{" "}
                   <br />
                   <input
                     type="date"

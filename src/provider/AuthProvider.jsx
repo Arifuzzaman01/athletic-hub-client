@@ -43,12 +43,12 @@ const AuthProvider = ({ children }) => {
             }
           )
           .then((res) => {
-            console.log(res.data);
+            // console.log(res.data);
           });
       }
     });
   }, [setUser,setLoading]);
-  console.log(user);
+  // console.log(user);
   const userInfo = {
     user,
     registerUser,

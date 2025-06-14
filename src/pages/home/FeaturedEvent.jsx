@@ -1,14 +1,13 @@
-import React, { use } from "react";
+import React, { use, useState } from "react";
 import { postPromise } from "./Home";
 import { compareAsc, parseISO } from "date-fns";
 import { motion } from "motion/react";
 import { Link } from "react-router";
 
 const FeaturedEvent = () => {
-  const allPostedData = use(postPromise);
-  // postedDate2025-06-09 12:41:37
-
-  // events.sort((a, b) => compareAsc(parseISO(a.date), parseISO(b.date)));
+  const eventData = use(postPromise);
+  const [allPostedData,setAllPostedData]=useState(eventData)
+ 
   allPostedData.sort((a, b) => {
     const dateA = new Date(a.postedDate);
     const dateB = new Date(b.postedDate);
@@ -85,7 +84,7 @@ const FeaturedEvent = () => {
         ))}
       </div>
       <div className="my-5 flex justify-center">
-        {allPostedData.length == 6 && (
+        {allPostedData.length > 6 && (
           <Link
             to="/all-events"
             className="btn btn-primary bg-red-500 hover:bg-red-700 w-full"
