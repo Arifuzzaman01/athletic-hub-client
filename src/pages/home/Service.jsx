@@ -24,7 +24,7 @@ const Service = () => {
   const isMd = useIsMediumUp();
   return (
     <div
-      className="min-h-[80vh] bg-cover bg-center opacity-85 my-20"
+      className="min-h-[80vh] bg-cover bg-center opacity-85 mt-20"
       style={{
         backgroundImage: `url(${bg})`,
       }}
@@ -34,10 +34,10 @@ const Service = () => {
       </h1>
       <div className="grid gird-cols-1 md:grid-cols-2 items-center">
         {/* left */}
-        <div className="flex  relative border-r-8 border-red-500  my-10">
+        <div className="flex  relative   my-10">
           <motion.div
             initial={{ x: -40, opacity: 0 }}
-            whileInView={{ x: isMd? 150:10, opacity: 1 }}
+            whileInView={{ x: isMd? 100:10, opacity: 1 }}
             viewport={{ once: true, amount: 0.3 }}
             transition={{ duration: 2, delay: 0.5 }}
             className="z-10  my-10 mr-20 "
@@ -77,7 +77,7 @@ const Service = () => {
           </motion.div>
         </div>
         {/* right */}
-        <div className="flex  relative border-r-8 border-gray-500  my-10">
+        <div className="flex  relative border-l-8 border-red-500  my-10">
           <motion.div
             initial={{ x: 0, opacity: 0 }}
             whileInView={{ x: isMd? 20:0, opacity: 1 }}
