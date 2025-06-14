@@ -12,6 +12,7 @@ const EventDetails = () => {
   const { user } = useContext(AuthContext);
   const [bookMark, setBookMark] = useState(false);
   // console.log(event);
+  delete event._id
   const currentEvent = {
     ...event,
     

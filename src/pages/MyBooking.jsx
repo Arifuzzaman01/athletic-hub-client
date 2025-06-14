@@ -36,7 +36,7 @@ const MyBooking = () => {
     return <p>Loading</p>
   }
   const handleDeleteMyBooking = (id) => {
-    console.log(id);
+    console.log(id,"id");
     // 68466e1e21e0af8a0ed878c0
     // 68466e1e21e0af8a0ed878c0
     Swal.fire({

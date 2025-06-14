@@ -15,7 +15,7 @@ const useAxiosSecure = () => {
 
     const requestInterceptor = axiosSecure.interceptors.request.use(
       async (config) => {
-            // const token = await user?.accessToken;
+            // const token = await user?.accessToken; does not more than post in db
             // console.log(token);
         if (token) {
           config.headers.Authorization = `Bearer ${token}`;
