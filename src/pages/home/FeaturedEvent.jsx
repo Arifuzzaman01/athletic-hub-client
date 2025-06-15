@@ -41,8 +41,8 @@ const FeaturedEvent = () => {
         Featured Event
       </motion.h1>
       <div className="grid sm:grid-cols-2 space-y-5 md:space-y-0 md:grid-cols-3 gap-8  ">
-        {slicePostedData.map((postedDate) => (
-          <div
+        {slicePostedData.map((postedDate,index) => (
+          <div key={index}
             className="card bg-base-100 "
             style={{
               boxShadow: " 0 2px 4px 0 #878c94",
@@ -89,7 +89,7 @@ const FeaturedEvent = () => {
             to="/all-events"
             className="btn btn-primary bg-red-500 hover:bg-red-700 w-full"
           >
-            View More
+           See All
           </Link>
         )}
       </div>

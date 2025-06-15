@@ -15,8 +15,8 @@ const useAxiosSecure = () => {
 
     const requestInterceptor = axiosSecure.interceptors.request.use(
       async (config) => {
-            // const token = await user?.accessToken; does not more than post in db
-            // console.log(token);
+        // const token = await user?.accessToken; does not more than post in db
+        // console.log(token);
         if (token) {
           config.headers.Authorization = `Bearer ${token}`;
         }
@@ -28,13 +28,13 @@ const useAxiosSecure = () => {
       (res) => res,
       (err) => {
         if (err.response?.status === 401 || err.response?.status === 403) {
-          //   logOut()
-          //     .then(() => {
-          //       console.log({
-          //         message: `You have been logged out due to ${err.response.status}`,
-          //       });
-          //     })
-          //     .catch((err) => console.log(err));
+          logOut()
+            .then(() => {
+              console.log({
+                message: `You have been logged out due to ${err.response.status}`,
+              });
+            })
+            .catch((err) => console.log(err));
         }
         return Promise.reject(err);
       }

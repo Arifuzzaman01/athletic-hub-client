@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { useLoaderData, useParams } from "react-router";
 import { easeInOut, motion } from "motion/react";
 import { AuthContext } from "../provider/AuthProvider";
@@ -11,6 +11,12 @@ const EventDetails = () => {
   const { id } = useParams();
   const { user } = useContext(AuthContext);
   const [bookMark, setBookMark] = useState(false);
+   useEffect(() => {
+    const saved = localStorage.getItem(`bookMarked_${id}`);
+    if (saved === "true") {
+      setBookMark(true);
+    }
+  }, [])
   // console.log(event);
   delete event._id
   const currentEvent = {
@@ -25,7 +31,8 @@ const EventDetails = () => {
       .then((res) => {
         console.log(res.data);
         if (res?.data?.insertedId) {
-          // setBookMark(true);
+          setBookMark(true);
+          localStorage.setItem(`bookMarked_${id}`, "true");
           Swal.fire({
             position: "top-end",
             icon: "success",
@@ -92,6 +99,7 @@ const EventDetails = () => {
               </h1>
               <button
                 onClick={addBookMark}
+                disabled={bookMark}
                 className="p-2 hover:bg-gray-300 rounded-sm hover:mt-1"
               >
                 {bookMark ? <IoBookmark /> : <IoBookmarkOutline />}

@@ -48,7 +48,9 @@ const Service = () => {
               </h1>
               <ul className="text-red-100">
                 <li>Post athletic Events</li>
-                <li>Register Event</li>
+                <li>Create Event</li>
+                <li>Register/Booked  Event</li>
+                <li>Remove Event</li>
                 <li>view event details (with data, location)</li>
               </ul>
             </div>

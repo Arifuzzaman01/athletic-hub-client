@@ -20,7 +20,7 @@ const Popular = () => {
             />
           </figure>
           <div className="card-body bg-red-500 hover:-mt-14 duration-300 text-white">
-            <img src="" alt="" />
+           
             <h2 className="card-title">Hurdle Race</h2>
             <p>
               Hurdle race is a thrilling track and field event where athletes
@@ -46,7 +46,7 @@ const Popular = () => {
             />
           </figure>
           <div className="card-body bg-red-400 hover:-mt-14 duration-300 text-white">
-            <img src="" alt="" />
+            
             <h2 className="card-title">Make Fit BodyBuilder</h2>
             <p>
               "Dedicated and disciplined bodybuilder with a passion for
@@ -66,7 +66,7 @@ const Popular = () => {
             />
           </figure>
           <div className="card-body bg-red-500 hover:-mt-14 duration-300 text-white">
-            <img src="" alt="" />
+            
             <h2 className="card-title">Boxing</h2>
             <p>
               Boxing[b] is a combat sport and martial art.[1] Taking place in a boxing ring, it involves two people usually wearing protective equipment, such as protective gloves, hand wraps throwing punches at each other for a predetermined amount of time.
