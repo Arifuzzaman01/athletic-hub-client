@@ -8,7 +8,7 @@ import Swal from "sweetalert2";
 import useAxiosSecure from "../hook/useAxiosInstance";
 
 const EventDetails = () => {
-  const [event,setEvent]=useState([])
+  const [event, setEvent] = useState([]);
   const { id } = useParams();
   const { user } = useContext(AuthContext);
   const [bookMark, setBookMark] = useState(false);
@@ -17,7 +17,7 @@ const EventDetails = () => {
     axiosSecure(`/athletic/${id}`)
       .then((res) => {
         console.log(res.data);
-        setEvent(res.data)
+        setEvent(res.data);
       })
       .catch((err) => console.log(err));
   }, []);
@@ -36,8 +36,8 @@ const EventDetails = () => {
   };
   // console.log(event);
   const addBookMark = () => {
-    axios
-      .post(`${import.meta.env.VITE_base_url}/bookmark`, currentEvent)
+    axiosSecure
+      .post(`/bookmark`, currentEvent)
       .then((res) => {
         console.log(res.data);
         if (res?.data?.insertedId) {

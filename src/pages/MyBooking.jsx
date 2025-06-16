@@ -17,7 +17,7 @@ const MyBooking = () => {
   const { user } = useContext(AuthContext);
   const [bookLoader, setBookLoader] = useState(true);
   const axiosSecure = useAxiosInstance();
-  const {email}=useParams()
+  const { email } = useParams();
   // console.log(bookings);
   useEffect(() => {
     if (user.email) {
@@ -50,8 +50,8 @@ const MyBooking = () => {
       confirmButtonText: "Yes, delete it!",
     }).then((result) => {
       if (result.isConfirmed) {
-        axios
-          .delete(`${import.meta.env.VITE_base_url}/myBooking/${id}`)
+        axiosSecure
+          .delete(`/myBooking/${id}?email=${user?.email}`)
           .then((res) => {
             // console.log(res.data);
             if (res.data.deletedCount > 0) {
