@@ -23,7 +23,7 @@ const ManageEvent = () => {
       .catch((err) => console.log(err));
   }, [user]);
 
-  console.log(userDate);
+  // console.log(userDate);
   const sortedUserData = [...userDate].sort((a, b) => {
     const dateA = new Date(a.postedDate);
     const dateB = new Date(b.postedDate);

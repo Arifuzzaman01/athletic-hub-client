@@ -26,7 +26,7 @@ const Banner = () => {
     return compareAsc(dateB, dateA);
   });
   const events = initialEvent.slice(0, 4);
-  console.log(events);
+  // console.log(events);
   return (
     <div className="">
       <Swiper

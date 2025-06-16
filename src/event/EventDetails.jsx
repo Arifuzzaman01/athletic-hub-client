@@ -16,7 +16,7 @@ const EventDetails = () => {
   useEffect(() => {
     axiosSecure(`/athletic/${id}`)
       .then((res) => {
-        console.log(res.data);
+        // console.log(res.data);
         setEvent(res.data);
       })
       .catch((err) => console.log(err));

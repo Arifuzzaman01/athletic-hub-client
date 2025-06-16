@@ -10,6 +10,7 @@ import { motion } from "motion/react";
 import useAxiosInstance from "../hook/useAxiosInstance";
 import { AuthContext } from "../provider/AuthProvider";
 import { useParams } from "react-router";
+import Loader from "../component/Loader";
 
 const MyBooking = () => {
   const [bookings, setBooking] = useState([]);
@@ -34,7 +35,7 @@ const MyBooking = () => {
     }
   }, [user, axiosSecure]);
   if (bookLoader) {
-    return <p>Loading</p>;
+    return <Loader />;
   }
   const handleDeleteMyBooking = (id) => {
     console.log(id, "id");

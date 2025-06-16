@@ -20,14 +20,15 @@ const CreateEvent = () => {
   // console.log(formattedDate);
   const handleCreateEvent = (e) => {
     e.preventDefault();
-    console.log("clicked");
+    // console.log("clicked");
     const form = e.target;
     const formData = new FormData(form);
     const data = Object.fromEntries(formData.entries());
     data.postedDate = formattedDate;
-    axiosSecure.post("/athletic", data)
+    axiosSecure
+      .post("/athletic", data)
       .then((res) => {
-        console.log(res.data);
+        // console.log(res.data);
         if (res?.data?.insertedId) {
           Swal.fire({
             position: "top",
@@ -38,7 +39,15 @@ const CreateEvent = () => {
           });
         }
       })
-      .catch((error) => console.log(error));
+      .catch((error) => {
+         Swal.fire({
+            position: "top",
+            icon: "error",
+            title: {error},
+            showConfirmButton: false,
+            timer: 1500,
+          });
+      });
     form.reset();
   };
   return (
