@@ -1,17 +1,29 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { motion } from "motion/react";
 import { AuthContext } from "../provider/AuthProvider";
-import { useLoaderData, useParams } from "react-router";
+import { useParams } from "react-router";
 import { format } from "date-fns";
 import axios from "axios";
 import Swal from "sweetalert2";
+import useAxiosSecure from "../hook/useAxiosInstance";
 
 const Update = () => {
   const { user } = useContext(AuthContext);
-    const oldData = useLoaderData();
-    const { eventName, eventType, date, eventUrl, location, description }=oldData
-    const { id } = useParams();
-    console.log(id);
+  const axiosSecure = useAxiosSecure();
+  const [oldData, setOldData] = useState([]);
+  console.log(oldData, "data psisi");
+  const { eventName, eventType, date, eventUrl, location, description } =
+    oldData;
+  const { id } = useParams();
+  // console.log(id);
+  useEffect(() => {
+    axiosSecure(`/athletic/${id}`)
+      .then((res) => {
+        console.log(res.data);
+        setOldData(res.data);
+      })
+      .catch((err) => console.log(err));
+  }, [axiosSecure]);
   const now = new Date();
   const formattedDate = format(now, "yyyy-MM-dd HH:mm:ss");
   const handleUpdateEvent = (e) => {
@@ -21,19 +33,20 @@ const Update = () => {
     const formData = new FormData(form);
     const currentData = Object.fromEntries(formData.entries());
     currentData.updatedDate = formattedDate;
+
     //   console.log(data);
-    axios
-      .patch(`${import.meta.env.VITE_base_url}/athletic/${id}`, currentData)
+    axiosSecure
+      .patch(`/athletic/${id}`, currentData)
       .then((res) => {
         // console.log(res.data);
-          if (res.data.modifiedCount) {
-            Swal.fire({
-  position: "top-end",
-  icon: "success",
-  title: "Update Successfully",
-  showConfirmButton: false,
-  timer: 1500
-});
+        if (res.data.modifiedCount) {
+          Swal.fire({
+            position: "top-end",
+            icon: "success",
+            title: "Update Successfully",
+            showConfirmButton: false,
+            timer: 1500,
+          });
         }
       })
       .catch((error) => {

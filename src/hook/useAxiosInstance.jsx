@@ -23,7 +23,7 @@ const useAxiosSecure = () => {
         return config;
       }
     );
-    console.log(token);
+    // console.log(token);
     const responseInterceptor = axiosSecure.interceptors.response.use(
       (res) => res,
       (err) => {

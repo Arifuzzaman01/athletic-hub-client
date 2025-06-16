@@ -5,26 +5,36 @@ import { AuthContext } from "../provider/AuthProvider";
 import { IoBookmark, IoBookmarkOutline } from "react-icons/io5";
 import axios from "axios";
 import Swal from "sweetalert2";
+import useAxiosSecure from "../hook/useAxiosInstance";
 
 const EventDetails = () => {
-  const event = useLoaderData();
+  const [event,setEvent]=useState([])
   const { id } = useParams();
   const { user } = useContext(AuthContext);
   const [bookMark, setBookMark] = useState(false);
-   useEffect(() => {
+  const axiosSecure = useAxiosSecure();
+  useEffect(() => {
+    axiosSecure(`/athletic/${id}`)
+      .then((res) => {
+        console.log(res.data);
+        setEvent(res.data)
+      })
+      .catch((err) => console.log(err));
+  }, []);
+  useEffect(() => {
     const saved = localStorage.getItem(`bookMarked_${id}`);
     if (saved === "true") {
       setBookMark(true);
     }
-  }, [])
+  }, []);
   // console.log(event);
-  delete event._id
+  delete event._id;
   const currentEvent = {
     ...event,
-    
+
     user_email: user?.email,
   };
-  console.log(event);
+  // console.log(event);
   const addBookMark = () => {
     axios
       .post(`${import.meta.env.VITE_base_url}/bookmark`, currentEvent)
@@ -70,7 +80,7 @@ const EventDetails = () => {
             <motion.img
               initial={{ y: 0 }}
               animate={{
-                y: [0,-30, 0, 15, 20, 0],
+                y: [0, -30, 0, 15, 20, 0],
               }}
               transition={{
                 duration: 4,

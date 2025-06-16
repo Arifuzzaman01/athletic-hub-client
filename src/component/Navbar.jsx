@@ -49,7 +49,7 @@ const Navbar = () => {
           >
             My Booking
           </NavLink>
-          <NavLink className="font-bold px-2 link-hover" to="/manageEvents">
+          <NavLink className="font-bold px-2 link-hover" to={`/manageEvents/${user.email}`}>
             Manage Events
           </NavLink>
         </>

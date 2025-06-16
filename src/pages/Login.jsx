@@ -11,8 +11,8 @@ const Login = () => {
   const { signInUser } = useContext(AuthContext);
   const [eyeChange, setEyeChange] = useState(false);
   const notify = () => toast.error("Invalid email/password");
-  const location = useLocation()
-  const navigate = useNavigate()
+  const location = useLocation();
+  const navigate = useNavigate();
   const handleSignIn = (e) => {
     e.preventDefault();
     const email = e.target.email.value;
@@ -20,7 +20,7 @@ const Login = () => {
     // console.log(email,password);
     signInUser(email, password)
       .then((userCredential) => {
-        // console.log(userCredential);
+        console.log(userCredential.accessToken,"token");
         Swal.fire({
           position: "top-end",
           icon: "success",
@@ -28,7 +28,7 @@ const Login = () => {
           showConfirmButton: false,
           timer: 1500,
         });
-        navigate(`${location.state ? location.state: "/"}`)
+        navigate(`${location.state ? location.state : "/"}`);
       })
       .catch((error) => {
         notify();

@@ -9,9 +9,11 @@ import { AuthContext } from "../provider/AuthProvider";
 import { object } from "motion/react-client";
 import axios from "axios";
 import Swal from "sweetalert2";
+import useAxiosSecure from "../hook/useAxiosInstance";
 
 const CreateEvent = () => {
   const { user } = useContext(AuthContext);
+  const axiosSecure = useAxiosSecure();
   const now = new Date();
   // console.log()
   const formattedDate = format(now, "yyyy-MM-dd HH:mm:ss");
@@ -23,8 +25,7 @@ const CreateEvent = () => {
     const formData = new FormData(form);
     const data = Object.fromEntries(formData.entries());
     data.postedDate = formattedDate;
-    axios
-      .post(`${import.meta.env.VITE_base_url}/athletic`, data)
+    axiosSecure.post("/athletic", data)
       .then((res) => {
         console.log(res.data);
         if (res?.data?.insertedId) {
@@ -38,7 +39,7 @@ const CreateEvent = () => {
         }
       })
       .catch((error) => console.log(error));
-    form.reset()
+    form.reset();
   };
   return (
     <div

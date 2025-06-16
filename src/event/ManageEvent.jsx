@@ -1,31 +1,29 @@
 import React, { useContext, useEffect, useState } from "react";
-import { data, Link, useLoaderData } from "react-router";
+import { data, Link, useLoaderData, useParams } from "react-router";
 import { AuthContext } from "../provider/AuthProvider";
 import { compareAsc } from "date-fns";
 import { MdDeleteForever } from "react-icons/md";
 import { FaEdit } from "react-icons/fa";
 import axios from "axios";
 import Swal from "sweetalert2";
+import useAxiosSecure from "../hook/useAxiosInstance";
 
 const ManageEvent = () => {
-  const allData = useLoaderData();
   const { user } = useContext(AuthContext);
   const [userDate, setUserData] = useState([]);
+  const axiosSecure = useAxiosSecure();
+  const {email}=useParams()
 
-  // console.log(data);
-  //   const initialData = allData.filter(
-  //     (data) => data?.creatorEmail === user?.email
-  //   );
   useEffect(() => {
-    if (user?.email && allData.length) {
-      const filtered = allData.filter(
-        (data) => data?.creatorEmail === user.email
-      );
-      setUserData(filtered);
-    }
-  }, [user, allData]);
+    axiosSecure(`/manageEvent?email=${email}`)
+      .then((res) => {
+        // console.log(res.data);
+        setUserData(res.data);
+      })
+      .catch((err) => console.log(err));
+  }, [user]);
 
-  //   console.log(userDate);
+  console.log(userDate);
   const sortedUserData = [...userDate].sort((a, b) => {
     const dateA = new Date(a.postedDate);
     const dateB = new Date(b.postedDate);
@@ -120,7 +118,9 @@ const ManageEvent = () => {
           </table>
         </div>
       ) : (
-        <h1 className="text-red-500 text-center text-6xl font-bold">No data here</h1>
+        <h1 className="text-red-500 text-center text-6xl font-bold">
+          No data here
+        </h1>
       )}
     </div>
   );

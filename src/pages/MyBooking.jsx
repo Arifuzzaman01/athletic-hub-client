@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
-import { useLoaderData } from "react-router";
+
 import { MdDeleteForever } from "react-icons/md";
 import axios from "axios";
 import Swal from "sweetalert2";
@@ -9,34 +9,35 @@ import { IoBookmarks } from "react-icons/io5";
 import { motion } from "motion/react";
 import useAxiosInstance from "../hook/useAxiosInstance";
 import { AuthContext } from "../provider/AuthProvider";
+import { useParams } from "react-router";
 
 const MyBooking = () => {
-  const initialData = useLoaderData();
-  const [bookings, setBooking] = useState(initialData);
+  const [bookings, setBooking] = useState([]);
   const [tabIndex, setTabIndex] = useState(0);
-  const { user ,loading,setLoading} = useContext(AuthContext)
-  const [bookLoader,setBookLoader]=useState(true)
-  const axiosSecure = useAxiosInstance()
+  const { user } = useContext(AuthContext);
+  const [bookLoader, setBookLoader] = useState(true);
+  const axiosSecure = useAxiosInstance();
+  const {email}=useParams()
   // console.log(bookings);
   useEffect(() => {
     if (user.email) {
-      axiosSecure(`/myBooking?email=${user.email}`)
-        .then(res => {
-        setBookLoader(false)
-        console.log(res.data);
-        setBooking(res.data)
-      })
-        .catch(err => {
-        setBookLoader(false)
-      console.log(err);
-    })
+      axiosSecure(`/myBooking?email=${email}`)
+        .then((res) => {
+          setBookLoader(false);
+          // console.log(res.data);
+          setBooking(res.data);
+        })
+        .catch((err) => {
+          setBookLoader(false);
+          console.log(err);
+        });
     }
-  }, [user, axiosSecure])
+  }, [user, axiosSecure]);
   if (bookLoader) {
-    return <p>Loading</p>
+    return <p>Loading</p>;
   }
   const handleDeleteMyBooking = (id) => {
-    console.log(id,"id");
+    console.log(id, "id");
     // 68466e1e21e0af8a0ed878c0
     // 68466e1e21e0af8a0ed878c0
     Swal.fire({
@@ -71,7 +72,7 @@ const MyBooking = () => {
       }
     });
   };
-  console.log(bookings );
+  // console.log(bookings );
   return (
     <div className="w-11/12 mx-auto py-10">
       <div className="flex justify-center items-center">

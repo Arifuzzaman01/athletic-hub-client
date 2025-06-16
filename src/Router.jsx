@@ -41,8 +41,7 @@ export const router = createBrowserRouter([
       },
       {
         path: "/event/:id",
-        loader: ({ params }) =>
-          fetch(`${import.meta.env.VITE_base_url}/athletic/${params.id}`),
+
         element: (
           <PrivateRouter>
             <EventDetails></EventDetails>
@@ -51,10 +50,7 @@ export const router = createBrowserRouter([
       },
       {
         path: "/myBooking/:email",
-        loader: ({ params }) =>
-          fetch(
-            `${import.meta.env.VITE_base_url}/myBooking?email=${params.email}`
-          ),
+
         element: (
           <PrivateRouter>
             <MyBooking></MyBooking>
@@ -62,8 +58,8 @@ export const router = createBrowserRouter([
         ),
       },
       {
-        path: "/manageEvents",
-        loader: () => fetch(`${import.meta.env.VITE_base_url}/athletic`),
+        path: "/manageEvents/:email",
+
         element: (
           <PrivateRouter>
             <ManageEvent></ManageEvent>
