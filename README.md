@@ -17,6 +17,11 @@
     react-toastify,
     sweetalert2,
     swiper,
+
+# how to run local server
+*setup firebase security key
+*command npm install
+* npm run dev
 # using jwt for server security
 ## private page is 
 *create event
