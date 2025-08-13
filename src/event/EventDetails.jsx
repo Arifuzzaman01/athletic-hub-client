@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
-import { useLoaderData, useParams } from "react-router";
+import { Navigate, useLocation, useNavigate, useParams } from "react-router";
 import { easeInOut, motion } from "motion/react";
 import { AuthContext } from "../provider/AuthProvider";
 import { IoBookmark, IoBookmarkOutline } from "react-icons/io5";
@@ -13,14 +13,17 @@ const EventDetails = () => {
   const { user } = useContext(AuthContext);
   const [bookMark, setBookMark] = useState(false);
   const axiosSecure = useAxiosSecure();
+  const location = useLocation();
+  const navigate = useNavigate()
   useEffect(() => {
-    axiosSecure(`/athletic/${id}`)
+    axios(`${import.meta.env.VITE_base_url}/athletic/${id}`)
       .then((res) => {
         // console.log(res.data);
         setEvent(res.data);
       })
       .catch((err) => console.log(err));
   }, []);
+  // console.log(import.meta.env.VITE_base_url);
   useEffect(() => {
     const saved = localStorage.getItem(`bookMarked_${id}`);
     if (saved === "true") {
@@ -31,36 +34,41 @@ const EventDetails = () => {
   delete event._id;
   const currentEvent = {
     ...event,
-
-    user_email: user?.email,
   };
   // console.log(event);
   const addBookMark = () => {
-    axiosSecure
-      .post(`/bookmark`, currentEvent)
-      .then((res) => {
-        console.log(res.data);
-        if (res?.data?.insertedId) {
-          setBookMark(true);
-          localStorage.setItem(`bookMarked_${id}`, "true");
+     if (!user || !user?.email) {
+     navigate("/login", { state: location.pathname });
+      return;
+    }
+    if (user || user?.email) {
+      axiosSecure
+        .post(`/bookmark`, currentEvent)
+        .then((res) => {
+          console.log(res.data);
+          if (res?.data?.insertedId) {
+            setBookMark(true);
+            localStorage.setItem(`bookMarked_${id}`, "true");
+            Swal.fire({
+              position: "top-end",
+              icon: "success",
+              title: "Your work has been saved",
+              showConfirmButton: false,
+              timer: 1500,
+            });
+          }
+        })
+        .catch((error) => {
           Swal.fire({
             position: "top-end",
-            icon: "success",
-            title: "Your work has been saved",
+            icon: "error",
+            title: "already booked/ Internal server error",
             showConfirmButton: false,
             timer: 1500,
           });
-        }
-      })
-      .catch((error) => {
-        Swal.fire({
-          position: "top-end",
-          icon: "error",
-          title: "already booked/ Internal server error",
-          showConfirmButton: false,
-          timer: 1500,
         });
-      });
+    }
+    
   };
   return (
     <div

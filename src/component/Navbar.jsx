@@ -4,8 +4,8 @@ import { AuthContext } from "../provider/AuthProvider.jsx";
 import { button, div } from "motion/react-client";
 import Swal from "sweetalert2";
 import { toast, ToastContainer } from "react-toastify";
-import logoA from "../assets/a-logo.png"
-import logoHub from "../assets/hub-logo.png"
+import logoA from "../assets/a-logo.png";
+import logoHub from "../assets/hub-logo.png";
 // import nabBg from "../assets/navBG.jpg";
 
 const Navbar = () => {
@@ -28,7 +28,9 @@ const Navbar = () => {
         notify(error.message);
       });
   };
-  
+  const handleScrollTo = (id) => {
+    document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
+  };
   const link = (
     <>
       <NavLink className="font-bold px-2 link-hover" to="/">
@@ -38,18 +40,24 @@ const Navbar = () => {
         Events
       </NavLink>
 
+      <NavLink className="font-bold px-2 link-hover" to="/create-event">
+        Create Event
+      </NavLink>
+      <Link className="font-bold px-2 link-hover">
+       <button onClick={() => handleScrollTo("service")}>Our Service</button>
+      </Link>
       {user && (
         <>
-          <NavLink className="font-bold px-2 link-hover" to="/create-event">
-            Create Event
-          </NavLink>
           <NavLink
             className="font-bold px-2 link-hover"
             to={`/myBooking/${user.email}`}
           >
             My Booking
           </NavLink>
-          <NavLink className="font-bold px-2 link-hover" to={`/manageEvents/${user.email}`}>
+          <NavLink
+            className="font-bold px-2 link-hover"
+            to={`/manageEvents/${user.email}`}
+          >
             Manage Events
           </NavLink>
         </>
@@ -91,7 +99,12 @@ const Navbar = () => {
             </ul>
           </div>
           {/* logo */}
-          <a className="btn btn-ghost text-xl "> <img className="w-6" src={logoA} alt="" /> <span className="font-bold -ml-2 mt-1 text-red-500">thletic</span> <img className="w-12 pt-1 hidden md:block" src={logoHub} alt="" /></a>
+          <a className="btn btn-ghost text-xl ">
+            {" "}
+            <img className="w-6" src={logoA} alt="" />{" "}
+            <span className="font-bold -ml-2 mt-1 text-red-500">thletic</span>{" "}
+            <img className="w-12 pt-1 hidden md:block" src={logoHub} alt="" />
+          </a>
         </div>
         <div className="navbar-center hidden lg:flex">
           <ul className="menu menu-horizontal px-1">{link}</ul>

@@ -16,7 +16,7 @@ const GoogleLogIn = () => {
       .then((result) => {
         // console.log(result);
         const token = result.user.accessToken;
-        console.log(token);
+        // console.log(token);
         axios.get(`${import.meta.env.VITE_base_url}/protected`, {
           headers: {
             Authorization: `Bearer ${token}`,

@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+
 import Banner from "../../component/Banner";
 import FeaturedEvent from "./FeaturedEvent";
 import Popular from "./Popular";
@@ -13,7 +13,9 @@ const Home = () => {
       <Banner></Banner>
       <FeaturedEvent ></FeaturedEvent>
       <Popular></Popular>
-      <Service></Service>
+      <div id="service">
+        <Service></Service>
+      </div>
     </div>
   );
 };

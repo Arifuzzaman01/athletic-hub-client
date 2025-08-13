@@ -1,5 +1,5 @@
 import React, { useContext, useState } from "react";
-import bgImg from "../assets/quibe.jpg";
+import bgImg from "../assets/athleticBG.png";
 import { AuthContext } from "../provider/AuthProvider";
 import Swal from "sweetalert2";
 import { Link, useLocation, useNavigate } from "react-router";
@@ -37,7 +37,7 @@ const Login = () => {
   };
   return (
     <div
-      className="flex justify-center items-center min-h-[calc(100vh-64px)] "
+      className="flex justify-center items-center py-10 bg-gray-800 bg-cover min-h-[calc(100vh-64px)] "
       style={{
         backgroundImage: `url(${bgImg})`,
       }}

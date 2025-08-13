@@ -47,7 +47,7 @@ const Banner = () => {
             {events.map((event) => (
               <SwiperSlide className="text-center">
                 <div
-                  className="hero min-h-[85vh] bg-fixed bg-center bg-cover sticky top-0 overflow-hidden opacity-[1]"
+                  className="hero min-h-[80vh] bg-fixed bg-center bg-cover sticky top-0 overflow-hidden opacity-[1]"
                   style={{
                     backgroundImage: `url(${event.eventUrl})`,
                   }}

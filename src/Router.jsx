@@ -42,11 +42,7 @@ export const router = createBrowserRouter([
       {
         path: "/event/:id",
 
-        element: (
-          <PrivateRouter>
-            <EventDetails></EventDetails>
-          </PrivateRouter>
-        ),
+        element: <EventDetails></EventDetails>,
       },
       {
         path: "/myBooking/:email",

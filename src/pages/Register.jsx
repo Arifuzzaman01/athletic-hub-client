@@ -1,5 +1,5 @@
 import React, { useContext, useState } from "react";
-import bgImg from "../assets/quibe.jpg";
+import bgImg from "../assets/athleticBG.png";
 import GoogleLogIn from "./GoogleLogIn";
 import { AuthContext } from "../provider/AuthProvider";
 import { updateProfile } from "firebase/auth";
@@ -58,7 +58,7 @@ const Register = () => {
   };
   return (
     <div
-      className="flex justify-center items-center py-10 bg-black min-h-[calc(100vh-64px)] "
+      className="flex justify-center items-center py-10 bg-gray-800 bg-cover min-h-[calc(100vh-64px)] "
       style={{
         backgroundImage: `url(${bgImg})`,
       }}

@@ -76,14 +76,14 @@ const Footer = () => {
             Events
           </NavLink>
 
-          {user && (
-            <>
               <NavLink
                 className="font-bold text-white px-2 link-hover"
                 to="/create-event"
               >
                 Create Event
               </NavLink>
+          {user && (
+            <>
               <NavLink
                 className="font-bold text-white px-2 link-hover"
                 to={`/myBooking/${user.email}`}
@@ -109,7 +109,7 @@ const Footer = () => {
             </div>
           </div>
         </nav>
-        <div className="mr-10 mt-5">
+        <div className="mr-20 mt-5">
           <h1 className="text-white text-center ">Social</h1>
           <div className="flex gap-4 pt-4 ">
             <a href="#">
@@ -124,9 +124,7 @@ const Footer = () => {
             <a href="#">
               <FaGithub size={28} />
             </a>
-            <a href="#">
-              <FaInstagramSquare size={28} />
-            </a>
+            
           </div>
         </div>
       </div>
