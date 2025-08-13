@@ -34,6 +34,9 @@ const EventDetails = () => {
   delete event._id;
   const currentEvent = {
     ...event,
+    bookingUser: user?.displayName,
+    user_email: user?.email,
+    photo: user?.photoURL
   };
   // console.log(event);
   const addBookMark = () => {
