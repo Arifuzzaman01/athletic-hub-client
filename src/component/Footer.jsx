@@ -21,6 +21,7 @@ const Footer = () => {
   ];
 
   const userLinks = [
+    { name: "My Profile", path: "/profile" },
     { name: "My Booking", path: `/myBooking/${user?.email}` },
     { name: "Manage Events", path: `/manageEvents/${user?.email}` },
   ];

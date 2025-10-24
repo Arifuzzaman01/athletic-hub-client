@@ -15,6 +15,7 @@ import Update from "./event/Update";
 import PrivateRouter from "./provider/PrivateRouter";
 import PageTitle from "./component/PageTitle";
 import Error from "./pages/Error";
+import UserProfile from "./pages/UserProfile";
 
 export const router = createBrowserRouter([
   {
@@ -91,6 +92,17 @@ export const router = createBrowserRouter([
             <>
               <PageTitle />
               <Update />
+            </>
+          </PrivateRouter>
+        ),
+      },
+      {
+        path: "/profile",
+        element: (
+          <PrivateRouter>
+            <>
+              <PageTitle />
+              <UserProfile />
             </>
           </PrivateRouter>
         ),

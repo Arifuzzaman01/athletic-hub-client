@@ -190,6 +190,13 @@ const Navbar = () => {
                       </p>
                     </div>
                     <Link
+                      to="/profile"
+                      className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                      onClick={() => setShowProfile(false)}
+                    >
+                      My Profile
+                    </Link>
+                    <Link
                       to={`/myBooking/${user.email}`}
                       className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
                       onClick={() => setShowProfile(false)}
