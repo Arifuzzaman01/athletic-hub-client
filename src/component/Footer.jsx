@@ -1,131 +1,143 @@
 import React, { useContext } from "react";
-import footerBg1 from "../assets/footbg1.png";
 import { NavLink } from "react-router";
-import { motion } from "motion/react";
 import { AuthContext } from "../provider/AuthProvider";
 import {
   FaFacebook,
   FaGithub,
-  FaInstagramSquare,
+  FaInstagram,
   FaTwitter,
+  FaYoutube,
 } from "react-icons/fa";
-import { FaYoutube } from "react-icons/fa";
 import Marquee from "react-fast-marquee";
+import { motion } from "motion/react";
 
 const Footer = () => {
   const { user } = useContext(AuthContext);
+
+  const quickLinks = [
+    { name: "Home", path: "/" },
+    { name: "Events", path: "/all-events" },
+    { name: "Create Event", path: "/create-event" },
+  ];
+
+  const userLinks = [
+    { name: "My Booking", path: `/myBooking/${user?.email}` },
+    { name: "Manage Events", path: `/manageEvents/${user?.email}` },
+  ];
+
+  const socialLinks = [
+    { icon: FaFacebook, url: "#", label: "Facebook" },
+    { icon: FaInstagram, url: "#", label: "Instagram" },
+    { icon: FaTwitter, url: "#", label: "Twitter" },
+    { icon: FaYoutube, url: "#", label: "YouTube" },
+    { icon: FaGithub, url: "#", label: "GitHub" },
+  ];
+
   return (
-    <footer
-      className="p-5 "
-      style={{
-        backgroundImage: `url(${footerBg1})`,
-        backgroundSize: "cover",
-        backgroundPosition: "center",
-        backgroundRepeat: "no-repeat",
-      }}
-    >
-      <div className="  border-b-[4px] border-gray-700">
+    <footer className="bg-gray-900 text-white pt-12 pb-8">
+      {/* Animated Header */}
+      <div className="border-b border-gray-700 pb-6 mb-8">
         <motion.h1
-          animate={{
-            scale: 1,
-            color: [
-              "#f74c02",
-              "#fa7d1e",
-              "#fa4a1e",
-              "#f0110a",
-              "#b00b0b",
-              "#780b0b",
-              "#b00b0b",
-              "#f0110a",
-              "#fa4a1e",
-              "#fa7d1e",
-              "#f74c02",
-            ],
-            transition: { duration: 4, repeat: Infinity },
-          }}
-          className="font-bold text-3xl text-center mb-5 z-10"
+          initial={{ opacity: 0, y: -20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5 }}
+          className="font-bold text-3xl text-center mb-4"
         >
           AthleticHub
         </motion.h1>
       </div>
-      <div className="sm:w-2/3 mx-auto">
+      
+      {/* Marquee */}
+      <div className="mb-12 px-4">
         <Marquee
           direction="left"
-          speed={60}
+          speed={50}
           pauseOnHover={true}
           gradient={true}
-          gradientWidth={60}
+          gradientColor="#111827"
+          gradientWidth={100}
         >
-          <p className="text-white text-sm md:text-lg font-semibold mx-10 tracking-wider">
-             Welcome to AthleticHub! |  Create, Book, and Explore Sports
-            Events Near You |  Join Teams & Build Your Athletic Journey Today!
+          <p className="text-white text-sm md:text-base font-medium mx-8 tracking-wide">
+            Welcome to AthleticHub! | Create, Book, and Explore Sports Events Near You | 
+            Join Teams & Build Your Athletic Journey Today!
           </p>
         </Marquee>
       </div>
-
-      <div className="flex flex-col md:flex-row justify-center md:justify-between md:items-end items-center text-white">
-        <nav className="ml-12 mt-10 flex md:flex-col justify-center flex-wrap ">
-          <h1 className="text-2xl font-bold text-white hidden md:block">Pages</h1> 
-          <NavLink className="font-bold text-white px-2 link-hover" to="/">
-            Home
-          </NavLink>
-          <NavLink
-            className="font-bold text-white px-2 link-hover"
-            to="/all-events"
-          >
-            Events
-          </NavLink>
-
-              <NavLink
-                className="font-bold text-white px-2 link-hover"
-                to="/create-event"
-              >
-                Create Event
-              </NavLink>
-          {user && (
-            <>
-              <NavLink
-                className="font-bold text-white px-2 link-hover"
-                to={`/myBooking/${user.email}`}
-              >
-                My Booking
-              </NavLink>
-              <NavLink
-                className="font-bold text-white px-2 link-hover"
-                to="/manageEvents"
-              >
-                Manage Events
-              </NavLink>
-            </>
-          )}
-        </nav>
-        <nav className="flex flex-col items-end h-full">
-          <div>
-            <div>
-              <p className="text-sm text-white text-center">
-                &copy; {new Date().getFullYear()} AthleticHub. All rights
-                reserved. Arifuzzaman Rakib
-              </p>
+      
+      <div className="max-w-7xl mx-auto px-4">
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-8 mb-12">
+          {/* Brand Info */}
+          <div className="md:col-span-1">
+            <h2 className="text-xl font-bold mb-4 text-red-500">AthleticHub</h2>
+            <p className="text-gray-400 mb-4">
+              Your ultimate platform for creating, managing, and participating in athletic events.
+            </p>
+            <div className="flex space-x-4">
+              {socialLinks.map((social, index) => (
+                <motion.a
+                  key={index}
+                  href={social.url}
+                  whileHover={{ y: -5 }}
+                  className="text-gray-400 hover:text-white transition-colors duration-300"
+                  aria-label={social.label}
+                >
+                  <social.icon size={20} />
+                </motion.a>
+              ))}
             </div>
           </div>
-        </nav>
-        <div className="mr-20 mt-5">
-          <h1 className="text-white text-center ">Social</h1>
-          <div className="flex gap-4 pt-4 ">
-            <a href="#">
-              <FaFacebook size={28} />
-            </a>
-            <a href="#">
-              <FaYoutube size={28} />
-            </a>
-            <a href="#">
-              <FaTwitter size={28} />
-            </a>
-            <a href="#">
-              <FaGithub size={28} />
-            </a>
-            
+          
+          {/* Quick Links */}
+          <div>
+            <h3 className="text-lg font-semibold mb-4">Quick Links</h3>
+            <ul className="space-y-2">
+              {quickLinks.map((link, index) => (
+                <li key={index}>
+                  <NavLink 
+                    to={link.path}
+                    className="text-gray-400 hover:text-white transition-colors duration-300"
+                  >
+                    {link.name}
+                  </NavLink>
+                </li>
+              ))}
+            </ul>
           </div>
+          
+          {/* User Links */}
+          {user && (
+            <div>
+              <h3 className="text-lg font-semibold mb-4">My Account</h3>
+              <ul className="space-y-2">
+                {userLinks.map((link, index) => (
+                  <li key={index}>
+                    <NavLink 
+                      to={link.path}
+                      className="text-gray-400 hover:text-white transition-colors duration-300"
+                    >
+                      {link.name}
+                    </NavLink>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
+          
+          {/* Contact Info */}
+          <div>
+            <h3 className="text-lg font-semibold mb-4">Contact Us</h3>
+            <ul className="space-y-2 text-gray-400">
+              <li>Email: info@athletichub.com</li>
+              <li>Phone: +1 (555) 123-4567</li>
+              <li>Address: 123 Sports Ave, Athletic City</li>
+            </ul>
+          </div>
+        </div>
+        
+        {/* Copyright */}
+        <div className="border-t border-gray-800 pt-6 text-center text-gray-500 text-sm">
+          <p>&copy; {new Date().getFullYear()} AthleticHub. All rights reserved.</p>
+          <p className="mt-1">Designed with passion for athletes everywhere</p>
         </div>
       </div>
     </footer>

@@ -1,214 +1,287 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import bg from "../assets/formBg.jpg";
-
 import { format } from "date-fns";
-
 import { motion } from "motion/react";
-
 import { AuthContext } from "../provider/AuthProvider";
-import { object } from "motion/react-client";
-import axios from "axios";
 import Swal from "sweetalert2";
 import useAxiosSecure from "../hook/useAxiosInstance";
 
 const CreateEvent = () => {
   const { user } = useContext(AuthContext);
   const axiosSecure = useAxiosSecure();
+  const [loading, setLoading] = useState(false);
+  const [errors, setErrors] = useState({});
+
   const now = new Date();
-  // console.log()
   const formattedDate = format(now, "yyyy-MM-dd HH:mm:ss");
-  // console.log(formattedDate);
-  const handleCreateEvent = (e) => {
+
+  const eventTypes = [
+    "Swimming",
+    "Sprinting",
+    "Long Jump",
+    "High Jump",
+    "Football",
+    "Hurdle Race",
+    "Boxing",
+    "Basketball",
+    "Tennis",
+    "Cycling",
+    "Weightlifting",
+    "Marathon"
+  ];
+
+  const validateForm = (data) => {
+    const newErrors = {};
+
+    if (!data.eventName.trim()) {
+      newErrors.eventName = "Event name is required";
+    }
+
+    if (!data.eventType || data.eventType === "Select a Event Type") {
+      newErrors.eventType = "Please select an event type";
+    }
+
+    if (!data.date) {
+      newErrors.date = "Event date is required";
+    }
+
+    if (!data.eventUrl.trim()) {
+      newErrors.eventUrl = "Event image URL is required";
+    } else if (!isValidUrl(data.eventUrl)) {
+      newErrors.eventUrl = "Please enter a valid URL";
+    }
+
+    if (!data.location.trim()) {
+      newErrors.location = "Event location is required";
+    }
+
+    if (!data.description.trim()) {
+      newErrors.description = "Event description is required";
+    } else if (data.description.length < 20) {
+      newErrors.description = "Description should be at least 20 characters";
+    }
+
+    return newErrors;
+  };
+
+  const isValidUrl = (string) => {
+    try {
+      new URL(string);
+      return true;
+    } catch (_) {
+      return false;
+    }
+  };
+
+  const handleCreateEvent = async (e) => {
     e.preventDefault();
-    // console.log("clicked");
+    
     const form = e.target;
     const formData = new FormData(form);
     const data = Object.fromEntries(formData.entries());
+    
     data.postedDate = formattedDate;
-    axiosSecure
-      .post("/athletic", data)
-      .then((res) => {
-        // console.log(res.data);
-        if (res?.data?.insertedId) {
-          Swal.fire({
-            position: "top",
-            icon: "success",
-            title: "Your event has been created",
-            showConfirmButton: false,
-            timer: 1500,
-          });
-        }
-      })
-      .catch((error) => {
-         Swal.fire({
-            position: "top",
-            icon: "error",
-            title: {error},
-            showConfirmButton: false,
-            timer: 1500,
-          });
+    data.creatorName = user?.displayName || "";
+    data.creatorEmail = user?.email || "";
+    
+    const formErrors = validateForm(data);
+    setErrors(formErrors);
+    
+    if (Object.keys(formErrors).length > 0) {
+      return;
+    }
+    
+    setLoading(true);
+    
+    try {
+      const response = await axiosSecure.post("/athletic", data);
+      
+      if (response?.data?.insertedId) {
+        Swal.fire({
+          position: "top-end",
+          icon: "success",
+          title: "Your event has been created successfully!",
+          showConfirmButton: false,
+          timer: 2000,
+        });
+        form.reset();
+        setErrors({});
+      }
+    } catch (error) {
+      Swal.fire({
+        position: "top-end",
+        icon: "error",
+        title: "Failed to create event. Please try again.",
+        showConfirmButton: false,
+        timer: 2000,
       });
-    form.reset();
+    } finally {
+      setLoading(false);
+    }
   };
+
   return (
     <div
-      className=" bg-center py-10 bg-cover"
+      className="min-h-screen py-12 bg-cover bg-center"
       style={{
-        backgroundImage: `url(${bg})`,
+        backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url(${bg})`,
       }}
     >
-      <div className="card bg-base-100 w-full max-w-11/12 md:max-w-3/4 mx-auto shrink-0 shadow-2xl ">
-        <div className="md:card-body ">
-          <motion.h1
-            animate={{
-              color: [
-                "#f24444",
-                "#ff3838",
-                "#e81e1e",
-                "#c21111",
-                "#8c0606",
-                "#660101",
-                "#8c0606",
-                "#c21111",
-                "#e81e1e",
-                "#ff3838",
-                "#f24444",
-              ],
-            }}
-            transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
-            className="text-2xl mt-5 md:text-4xl font-bold text-center text-red-500"
-          >
-            Add a Event as You Need
-          </motion.h1>
-          <form onSubmit={handleCreateEvent} className="shadow-2xl p-8 ">
-            <fieldset className="fieldset w-full space-y-3">
-              {/* name */}
-              <div className="type">
-                <label className="label font-semibold my-2">Event Name</label>{" "}
-                <br />
+      <div className="max-w-4xl mx-auto px-4">
+        <motion.div
+          initial={{ opacity: 0, y: -20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5 }}
+          className="bg-white rounded-2xl shadow-2xl overflow-hidden"
+        >
+          <div className="bg-red-500 py-6">
+            <motion.h1
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 0.2 }}
+              className="text-2xl md:text-3xl font-bold text-center text-white"
+            >
+              Create New Athletic Event
+            </motion.h1>
+          </div>
+          
+          <form onSubmit={handleCreateEvent} className="p-6 md:p-8">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              {/* Event Name */}
+              <div className="md:col-span-2">
+                <label className="label font-semibold">
+                  <span className="label-text">Event Name *</span>
+                </label>
                 <input
                   type="text"
-                  className="input w-full"
-                  required
                   name="eventName"
-                  placeholder="Add your event name"
+                  className={`input input-bordered w-full ${errors.eventName ? 'input-error' : ''}`}
+                  placeholder="Enter event name"
+                />
+                {errors.eventName && <span className="text-red-500 text-sm mt-1">{errors.eventName}</span>}
+              </div>
+              
+              {/* Event Type */}
+              <div>
+                <label className="label font-semibold">
+                  <span className="label-text">Event Type *</span>
+                </label>
+                <select
+                  name="eventType"
+                  className={`select select-bordered w-full ${errors.eventType ? 'select-error' : ''}`}
+                  defaultValue=""
+                >
+                  <option value="" disabled>Select an event type</option>
+                  {eventTypes.map((type) => (
+                    <option key={type} value={type}>{type}</option>
+                  ))}
+                </select>
+                {errors.eventType && <span className="text-red-500 text-sm mt-1">{errors.eventType}</span>}
+              </div>
+              
+              {/* Event Date */}
+              <div>
+                <label className="label font-semibold">
+                  <span className="label-text">Event Date *</span>
+                </label>
+                <input
+                  type="date"
+                  name="date"
+                  className={`input input-bordered w-full ${errors.date ? 'input-error' : ''}`}
+                />
+                {errors.date && <span className="text-red-500 text-sm mt-1">{errors.date}</span>}
+              </div>
+              
+              {/* Creator Name (Read-only) */}
+              <div>
+                <label className="label font-semibold">
+                  <span className="label-text">Creator Name</span>
+                </label>
+                <input
+                  type="text"
+                  name="creatorName"
+                  value={user?.displayName || ""}
+                  className="input input-bordered w-full bg-gray-100"
+                  readOnly
                 />
               </div>
-              <div className="md:grid grid-cols-2 gap-2">
-                {/* type */}
-                <div>
-                  <label className="label font-semibold my-2">
-                    Select a Event Type
-                  </label>{" "}
-                  <br />
-                  <select
-                    name="eventType"
-                    defaultValue="Select a Event Type"
-                    className="select  w-full  "
-                  >
-                    <option disabled={true}>Summing</option>
-                    <option value="Summing">Summing</option>
-                    <option value="Spring">Spring</option>
-                    <option value="Long Jump">Long Jump</option>
-                    <option value="High Jump">High Jump</option>
-                    <option value="Football">Football </option>
-                    <option value="Hurdle Race">Hurdle Race </option>
-                    <option value="Boxing">Boxing </option>
-                    <option value="Basket">Basket Ball </option>
-                  </select>
-                </div>
-                {/* date */}
-                <div>
-                  <label className="label font-semibold my-2">Event Date</label>{" "}
-                  <br />
-                  <input
-                    type="date"
-                    name="date"
-                    className="input w-full"
-                    required
-                  />
-                </div>
-                {/* creator name */}
-                <div>
-                  <label className="label font-semibold my-2">
-                    Creator Name
-                  </label>{" "}
-                  <br />
-                  <input
-                    type="text"
-                    name="creatorName"
-                    value={user?.displayName}
-                    className="input w-full"
-                    required
-                    placeholder="Email"
-                  />
-                </div>
-                {/* creator email */}
-                <div>
-                  <label className="label font-semibold my-2">
-                    Creator Email
-                  </label>{" "}
-                  <br />
-                  <input
-                    type="email"
-                    value={user?.email}
-                    name="creatorEmail"
-                    className="input w-full"
-                    required
-                    placeholder="Creator Email"
-                  />
-                </div>
-                {/* url */}
-                <div>
-                  <label className="label font-semibold my-2">
-                    Picture URL for the event
-                  </label>{" "}
-                  <br />
-                  <input
-                    type="url"
-                    name="eventUrl"
-                    className="input w-full"
-                    required
-                    placeholder="enter your event photo url"
-                  />
-                </div>
-                {/* location */}
-                <div>
-                  <label className="label font-semibold my-2">
-                    Event Location
-                  </label>{" "}
-                  <br />
-                  <input
-                    type="text"
-                    name="location"
-                    className="input w-full"
-                    required
-                    placeholder="enter your event location"
-                  />
-                </div>
-              </div>
-
-              {/* description */}
+              
+              {/* Creator Email (Read-only) */}
               <div>
-                <label className="label font-semibold my-2">
-                  Write some description on the event
+                <label className="label font-semibold">
+                  <span className="label-text">Creator Email</span>
+                </label>
+                <input
+                  type="email"
+                  name="creatorEmail"
+                  value={user?.email || ""}
+                  className="input input-bordered w-full bg-gray-100"
+                  readOnly
+                />
+              </div>
+              
+              {/* Event Image URL */}
+              <div className="md:col-span-2">
+                <label className="label font-semibold">
+                  <span className="label-text">Event Image URL *</span>
+                </label>
+                <input
+                  type="url"
+                  name="eventUrl"
+                  className={`input input-bordered w-full ${errors.eventUrl ? 'input-error' : ''}`}
+                  placeholder="https://example.com/event-image.jpg"
+                />
+                {errors.eventUrl && <span className="text-red-500 text-sm mt-1">{errors.eventUrl}</span>}
+              </div>
+              
+              {/* Event Location */}
+              <div className="md:col-span-2">
+                <label className="label font-semibold">
+                  <span className="label-text">Event Location *</span>
+                </label>
+                <input
+                  type="text"
+                  name="location"
+                  className={`input input-bordered w-full ${errors.location ? 'input-error' : ''}`}
+                  placeholder="Enter event location"
+                />
+                {errors.location && <span className="text-red-500 text-sm mt-1">{errors.location}</span>}
+              </div>
+              
+              {/* Event Description */}
+              <div className="md:col-span-2">
+                <label className="label font-semibold">
+                  <span className="label-text">Event Description *</span>
                 </label>
                 <textarea
-                  className="textarea h-24 w-full"
-                  required
                   name="description"
-                  placeholder="write details"
+                  className={`textarea textarea-bordered h-32 w-full ${errors.description ? 'textarea-error' : ''}`}
+                  placeholder="Describe your event in detail (minimum 20 characters)"
                 ></textarea>
+                {errors.description && <span className="text-red-500 text-sm mt-1">{errors.description}</span>}
               </div>
-            </fieldset>
-            <button
-              type="submit"
-              className="btn bg-red-500 hover:bg-red-700 w-full my-5 text-white font-bold"
-            >
-              Submit Event
-            </button>
+            </div>
+            
+            <div className="mt-8">
+              <button
+                type="submit"
+                disabled={loading}
+                className={`btn w-full py-3 text-white font-bold text-lg transition-all duration-300 ${
+                  loading ? 'bg-red-400' : 'bg-red-500 hover:bg-red-600'
+                }`}
+              >
+                {loading ? (
+                  <span className="flex items-center justify-center">
+                    <span className="loading loading-spinner mr-2"></span>
+                    Creating Event...
+                  </span>
+                ) : (
+                  "Create Event"
+                )}
+              </button>
+            </div>
           </form>
-        </div>
+        </motion.div>
       </div>
     </div>
   );

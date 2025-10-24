@@ -5,74 +5,65 @@ import boxing from "../../assets/boxing.jpg";
 import { motion } from "motion/react";
 
 const Popular = () => {
+  const popularItems = [
+    {
+      id: 1,
+      title: "Hurdle Race",
+      description: "A thrilling track and field event where athletes sprint and leap over evenly spaced barriers. This sport demands speed, agility, and precise timing to navigate hurdles without knocking them down.",
+      image: Hurdle,
+      bgColor: "bg-red-500"
+    },
+    {
+      id: 2,
+      title: "Body Building",
+      description: "Dedicated and disciplined bodybuilding with a passion for strength, aesthetics, and personal growth. Years of intense training and proper nutrition shape not only the physique but character.",
+      image: abcImg,
+      bgColor: "bg-orange-500"
+    },
+    {
+      id: 3,
+      title: "Boxing",
+      description: "A combat sport and martial art taking place in a boxing ring. Two participants wearing protective gloves throw punches at each other for a predetermined amount of time, testing strength and strategy.",
+      image: boxing,
+      bgColor: "bg-red-600"
+    }
+  ];
+
   return (
-    <div className="w-11/12 mx-auto my-14">
-      <h1 className="text-red-500 text-2xl mb-3 md:text-3xl text-center font-bold">Most Popular Athletic</h1>
-      {/* cards */}
-      <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-5">
-        {/* card 1 */}
-        <div className="card bg-base-100  shadow-sm">
-          <figure>
-            <img
-              className="hover:rotate-6 duration-200 hover:scale-125 w-full h-80 md:h-60"
-              src={Hurdle}
-              alt="Shoes"
-            />
-          </figure>
-          <div className="card-body bg-red-500 hover:-mt-14 duration-300 text-white">
-           
-            <h2 className="card-title">Hurdle Race</h2>
-            <p>
-              Hurdle race is a thrilling track and field event where athletes
-              sprint and leap over a series of evenly spaced barriers called
-              hurdles. Whether in the 100m, 110m, or 400m category, hurdle
-              racing pushes the limits of athletic coordination and endurance
-            </p>
-          </div>
-        </div>
-        {/* card 2 */}
-        <motion.div
-          animate={{
-            y: [0, 30, 0, -10, 0],
-          }}
-          transition={{ duration: 10, repeat: Infinity }}
-          className="card bg-base-100  shadow-sm md:top-10 "
-        >
-          <figure>
-            <img
-              className="hover:rotate-6 duration-200 hover:scale-125 w-full h-80 md:h-60"
-              src={abcImg}
-              alt="Shoes"
-            />
-          </figure>
-          <div className="card-body bg-red-400 hover:-mt-14 duration-300 text-white">
-            
-            <h2 className="card-title">Make Fit BodyBuilder</h2>
-            <p>
-              "Dedicated and disciplined bodybuilder with a passion for
-              strength, aesthetics, and personal growth. Years of intense
-              training, proper nutrition, and a relentless mindset have shaped
-              not only my physique but my character.
-            </p>
-          </div>
-        </motion.div>
-        {/* card 3 */}
-        <div className="card bg-base-100  shadow-sm">
-          <figure>
-            <img
-              className="hover:rotate-6 duration-200 hover:scale-125 w-full h-80 md:h-60"
-              src={boxing}
-              alt="Shoes"
-            />
-          </figure>
-          <div className="card-body bg-red-500 hover:-mt-14 duration-300 text-white">
-            
-            <h2 className="card-title">Boxing</h2>
-            <p>
-              Boxing[b] is a combat sport and martial art.[1] Taking place in a boxing ring, it involves two people usually wearing protective equipment, such as protective gloves, hand wraps throwing punches at each other for a predetermined amount of time.
-            </p>
-          </div>
-        </div>
+    <div className="w-11/12 mx-auto my-20">
+      <motion.h2 
+        initial={{ opacity: 0, y: -20 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5 }}
+        className="text-3xl md:text-4xl font-bold text-center mb-12 text-gray-800"
+      >
+        <span className="border-b-4 border-red-500 pb-2">Most Popular Athletics</span>
+      </motion.h2>
+      
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        {popularItems.map((item, index) => (
+          <motion.div
+            key={item.id}
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: index * 0.1 }}
+            whileHover={{ y: -10 }}
+            className="card bg-white rounded-xl overflow-hidden shadow-lg transition-all duration-300 hover:shadow-2xl"
+          >
+            <figure className="h-56 overflow-hidden">
+              <motion.img
+                src={item.image}
+                alt={item.title}
+                className="w-full h-full object-cover transition-transform duration-500"
+                whileHover={{ scale: 1.1 }}
+              />
+            </figure>
+            <div className={`${item.bgColor} p-6 text-white transition-all duration-300`}>
+              <h3 className="card-title text-xl md:text-2xl mb-3">{item.title}</h3>
+              <p className="text-white/90">{item.description}</p>
+            </div>
+          </motion.div>
+        ))}
       </div>
     </div>
   );
