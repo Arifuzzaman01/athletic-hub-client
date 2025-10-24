@@ -74,7 +74,7 @@ const FeaturedEvent = () => {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.3, delay: index * 0.1 }}
                 whileHover={{ y: -10 }}
-                className="card bg-white rounded-xl overflow-hidden shadow-lg transition-all duration-300 hover:shadow-2xl"
+                className="card bg-white rounded-xl overflow-hidden shadow-md transition-all duration-300 hover:shadow-xl"
               >
                 <figure className="h-48 overflow-hidden">
                   <img
