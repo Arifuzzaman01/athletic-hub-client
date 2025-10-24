@@ -52,6 +52,17 @@ const Navbar = () => {
             isActive ? 'bg-red-500 text-white' : 'text-gray-700 hover:bg-red-100'
           }`
         } 
+        to="/services"
+        onClick={() => setIsMenuOpen(false)}
+      >
+        Services
+      </NavLink>
+      <NavLink 
+        className={({ isActive }) => 
+          `font-medium px-3 py-2 rounded-lg transition-colors duration-200 ${
+            isActive ? 'bg-red-500 text-white' : 'text-gray-700 hover:bg-red-100'
+          }`
+        } 
         to="/all-events"
         onClick={() => setIsMenuOpen(false)}
       >
@@ -68,12 +79,6 @@ const Navbar = () => {
       >
         Create Event
       </NavLink>
-      <button 
-        className="font-medium px-3 py-2 rounded-lg text-gray-700 hover:bg-red-100 transition-colors duration-200"
-        onClick={() => handleScrollTo("service")}
-      >
-        Our Services
-      </button>
       {user && (
         <>
           <NavLink 

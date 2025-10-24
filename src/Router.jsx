@@ -16,6 +16,7 @@ import PrivateRouter from "./provider/PrivateRouter";
 import PageTitle from "./component/PageTitle";
 import Error from "./pages/Error";
 import UserProfile from "./pages/UserProfile";
+import Services from "./pages/Services";
 
 export const router = createBrowserRouter([
   {
@@ -28,6 +29,15 @@ export const router = createBrowserRouter([
           <>
             <PageTitle />
             <Home />
+          </>
+        ),
+      },
+      {
+        path: "/services",
+        element: (
+          <>
+            <PageTitle />
+            <Services />
           </>
         ),
       },
