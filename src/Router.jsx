@@ -10,7 +10,6 @@ import AllEvent from "./event/AllEvent";
 import EventDetails from "./event/EventDetails";
 import MyBooking from "./pages/MyBooking";
 import ManageEvent from "./event/ManageEvent";
-import { Suspense } from "react";
 import Loader from "./component/Loader";
 import Update from "./event/Update";
 import PrivateRouter from "./provider/PrivateRouter";
@@ -20,45 +19,66 @@ import Error from "./pages/Error";
 export const router = createBrowserRouter([
   {
     path: "/",
-    Component: MainLayout,
+    element: <MainLayout />,
     children: [
       {
         index: true,
-        Component: Home,
+        element: (
+          <>
+            <PageTitle />
+            <Home />
+          </>
+        ),
       },
       {
         path: "/create-event",
         element: (
           <PrivateRouter>
-            <CreateEvent></CreateEvent>
+            <>
+              <PageTitle />
+              <CreateEvent />
+            </>
           </PrivateRouter>
         ),
       },
       {
         path: "/all-events",
         loader: () => fetch(`${import.meta.env.VITE_base_url}/athletic`),
-        Component: AllEvent,
+        element: (
+          <>
+            <PageTitle />
+            <AllEvent />
+          </>
+        ),
       },
       {
         path: "/event/:id",
-
-        element: <EventDetails></EventDetails>,
+        element: (
+          <>
+            <PageTitle />
+            <EventDetails />
+          </>
+        ),
       },
       {
         path: "/myBooking/:email",
-
         element: (
           <PrivateRouter>
-            <MyBooking></MyBooking>
+            <>
+              <PageTitle />
+              <MyBooking />
+            </>
           </PrivateRouter>
         ),
       },
       {
         path: "/manageEvents/:email",
-
         element: (
           <PrivateRouter>
-            <ManageEvent></ManageEvent>
+            <>
+              <PageTitle />
+              <ManageEvent />
+            </>
           </PrivateRouter>
         ),
       },
@@ -68,23 +88,40 @@ export const router = createBrowserRouter([
           fetch(`${import.meta.env.VITE_base_url}/athletic/${params.id}`),
         element: (
           <PrivateRouter>
-            <Update></Update>
+            <>
+              <PageTitle />
+              <Update />
+            </>
           </PrivateRouter>
         ),
       },
-      ,
       {
         path: "/login",
-        Component: Login,
+        element: (
+          <>
+            <PageTitle />
+            <Login />
+          </>
+        ),
       },
       {
         path: "/register",
-        Component: Register,
+        element: (
+          <>
+            <PageTitle />
+            <Register />
+          </>
+        ),
       },
     ],
   },
   {
     path: "*",
-    Component: Error,
+    element: (
+      <>
+        <PageTitle />
+        <Error />
+      </>
+    ),
   },
 ]);
