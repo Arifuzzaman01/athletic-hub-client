@@ -40,7 +40,7 @@ const Popular = () => {
         <span className="border-b-4 border-red-500 pb-2">Most Popular Athletics</span>
       </motion.h2>
       
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 nth-child(3n):cols-span-2">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
         {popularItems.map((item, index) => (
           <motion.div
             key={item.id}
@@ -48,7 +48,9 @@ const Popular = () => {
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: index * 0.05 }}
             whileHover={{ y: -10 }}
-            className="card bg-white rounded-xl overflow-hidden shadow-md transition-all ease-in-out duration-200 hover:shadow-xl"
+            className={`card bg-white rounded-xl overflow-hidden shadow-md transition-all ease-in-out duration-200 hover:shadow-xl ${
+              index === 2 ? 'md:col-span-2 lg:col-span-1' : ''
+            }`}
           >
             <figure className="h-56 overflow-hidden">
               <motion.img
